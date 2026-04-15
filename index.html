@@ -223,77 +223,188 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
   background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#0A0805}::-webkit-scrollbar-thumb{background:#D4940A}
 
-/* ── Mobile ── */
+/* ══ EXTRA EFFECTS ══ */
+
+/* Heat haze on hero */
+@keyframes heatHaze{
+  0%,100%{transform:scaleY(1) skewX(0deg) scaleX(1)}
+  25%{transform:scaleY(1.003) skewX(.25deg) scaleX(1.001)}
+  75%{transform:scaleY(.998) skewX(-.2deg) scaleX(.999)}
+}
+#hero-bg{animation:heatHaze 9s ease-in-out infinite}
+
+/* Logo glow pulse */
+@keyframes logoGlow{
+  0%,100%{filter:drop-shadow(0 0 5px rgba(212,148,10,.4))}
+  50%{filter:drop-shadow(0 0 18px rgba(212,148,10,.9)) drop-shadow(0 0 35px rgba(190,58,26,.35))}
+}
+#navbar a>svg{animation:logoGlow 3.5s ease-in-out infinite}
+
+/* Card shine sweep */
+.mc .relative{overflow:hidden}
+.mc .relative::after{content:'';position:absolute;top:0;left:-120%;width:55%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,186,56,.18),transparent);
+  transform:skewX(-18deg);transition:left .55s ease;pointer-events:none;z-index:3}
+.mc:hover .relative::after{left:150%}
+
+/* Lava glow border on promo card */
+@keyframes lavaGlow{
+  0%,100%{box-shadow:0 0 25px rgba(190,58,26,.25),0 0 60px rgba(212,148,10,.08),inset 0 0 80px rgba(0,0,0,.3)}
+  50%{box-shadow:0 0 50px rgba(190,58,26,.5),0 0 100px rgba(212,148,10,.2),inset 0 0 80px rgba(0,0,0,.3)}
+}
+#promos .relative.overflow-hidden.rounded-3xl{animation:lavaGlow 3s ease-in-out infinite}
+
+/* Stat counter glow */
+@keyframes countGlow{
+  0%{text-shadow:none}
+  50%{text-shadow:0 0 30px #FFBA38,0 0 60px rgba(212,148,10,.6)}
+  100%{text-shadow:none}
+}
+.stat-counted{animation:countGlow 1.2s ease-out forwards}
+
+/* Animated underline on section titles */
+@keyframes underlineExpand{from{width:0}to{width:100%}}
+.title-underline{position:relative;display:inline-block}
+.title-underline::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:2px;
+  background:linear-gradient(90deg,#BE3A1A,#D4940A,#FFBA38);border-radius:2px}
+.title-underline.in-view::after{animation:underlineExpand .8s ease-out .2s forwards}
+
+/* Image parallax wrapper */
+.img-par{overflow:hidden;border-radius:1rem}
+.img-par img{will-change:transform}
+
+/* Glowing icon */
+@keyframes iconPop{
+  0%,100%{transform:scale(1);filter:drop-shadow(0 0 4px rgba(212,148,10,.4))}
+  50%{transform:scale(1.12);filter:drop-shadow(0 0 12px rgba(212,148,10,.9))}
+}
+.icon-pop{animation:iconPop 2.8s ease-in-out infinite}
+
+/* WhatsApp pulse ring */
+@keyframes wapRing{
+  0%{box-shadow:0 0 0 0 rgba(37,211,102,.6)}
+  70%{box-shadow:0 0 0 18px rgba(37,211,102,0)}
+  100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}
+}
+#wa-fl{animation:wapRing 2s ease-out infinite}
+
+/* Scroll reveal: slide up with fire colour */
+.rv-fire{opacity:0;transform:translateY(50px)}
+
+/* Section bg fire pulse */
+@keyframes secBg{
+  0%,100%{background-size:100% 100%}
+  50%{background-size:105% 108%}
+}
+
+/* Glowing horizontal rule */
+.glow-hr{border:none;height:1px;background:linear-gradient(90deg,transparent,rgba(212,148,10,.6),transparent);
+  margin:2rem 0;box-shadow:0 0 12px rgba(212,148,10,.3)}
+
+/* Fire corner accents */
+.fire-corner{position:relative}
+.fire-corner::before,.fire-corner::after{content:'🔥';position:absolute;font-size:.9rem;opacity:.5;pointer-events:none}
+.fire-corner::before{top:-.4rem;left:-.4rem}
+.fire-corner::after{top:-.4rem;right:-.4rem}
+
+/* Smoke rising from marquee */
+.smoke-particle{position:absolute;width:40px;height:60px;border-radius:50%;pointer-events:none;
+  background:radial-gradient(ellipse,rgba(255,255,255,.06) 0%,transparent 70%);
+  animation:smokeRise linear infinite;bottom:0}
+@keyframes smokeRise{
+  0%{transform:translateY(0) scale(.5);opacity:.6}
+  100%{transform:translateY(-80px) scale(2.5);opacity:0}
+}
+
+/* ══ MOBILE FULL OVERRIDE ══ */
 @media(max-width:767px){
-  /* Reveals: skip animation, show immediately */
-  .rv-up,.rv-left,.rv-right,.rv-scale{opacity:1!important;transform:none!important}
-
-  /* No hover 3D effects on touch */
-  .mc:hover{transform:none!important;box-shadow:none!important}
-  .sc:hover{transform:none!important}
+  /* ── Kill heavy desktop FX ── */
+  .rv-up,.rv-left,.rv-right,.rv-scale,.rv-fire{opacity:1!important;transform:none!important}
+  .ember-p,.fork-trail,#fork-cur,#fire-icons-cont,.smoke-particle,body::after{display:none!important}
+  .fire-flick,.fire-text{animation:none!important}
+  .mc:hover,.sc:hover,.btn-gold:hover,.btn-out:hover{transform:none!important;box-shadow:none!important}
   .gi:hover img{transform:none!important}
-  .gi:hover::after{opacity:0!important}
-  .btn-gold:hover,.btn-out:hover{transform:none!important}
+  .gi:hover::before,.gi:hover::after{opacity:0!important}
+  #hero-bg{animation:none!important}
+  #navbar a>svg{animation:none!important}
+  #wa-fl{animation:wapRing 2s ease-out infinite!important}
 
-  /* Hide heavy effects on mobile */
-  .ember-p,.fork-trail,#fork-cur{display:none!important}
-  .fire-flick{animation:none}
-  body::after{display:none}
-
-  /* Hero */
-  #inicio{min-height:100svh}
-  #inicio .py-32{padding-top:7rem;padding-bottom:3rem}
-  #hero-stats{gap:1rem!important}
-  #hero-stats [data-count]{font-size:1.5rem!important}
-
-  /* Nav */
-  #navbar .px-5{padding-left:1rem;padding-right:1rem}
-  #navbar svg{width:40px;height:45px}
-
-  /* Menu cards */
-  .mc{border-radius:1rem}
-  .mc .relative.h-48{height:10rem}
-
-  /* Promo section */
-  #promos .p-8{padding:1.5rem}
-  #promos .p-16{padding:1.5rem}
-
-  /* Gallery: 2 cols */
-  .grid-cols-2.md\\:grid-cols-4{grid-template-columns:repeat(2,1fr)}
-  .gi.md\\:mt-8{margin-top:0!important}
-
-  /* Contact map */
-  .rv-right.rounded-2xl{height:260px!important}
-
-  /* Footer link colors (were nearly invisible) */
-  footer a,footer p{color:#C8B898!important}
-  footer .hover\\:text-gold:hover{color:#D4940A!important}
-
-  /* Touch targets */
-  a,button{min-height:44px;display:inline-flex;align-items:center;justify-content:center}
-  .nav-link{min-height:44px;display:inline-flex;align-items:center}
-
-  /* Prevent iOS zoom on tap */
+  /* ── Base ── */
+  html{-webkit-overflow-scrolling:touch;touch-action:manipulation}
   input,select,textarea{font-size:16px!important}
 
-  /* Smooth scroll on iOS */
-  html{-webkit-overflow-scrolling:touch}
+  /* ── Nav ── */
+  #navbar{padding-top:.6rem;padding-bottom:.6rem}
+  #navbar .px-5{padding-left:.9rem;padding-right:.9rem}
+  #navbar svg{width:42px!important;height:47px!important}
+  #navbar .leading-tight div:first-child{font-size:.52rem}
+  #navbar .leading-tight div:last-child{font-size:.7rem}
 
-  /* CTA section */
-  .py-20.md\\:py-28{padding-top:3.5rem;padding-bottom:3.5rem}
+  /* ── Hero ── */
+  #inicio{min-height:100svh;min-height:-webkit-fill-available}
+  #inicio>div.relative.z-10{padding:5.5rem 1.25rem 2.5rem}
+  #inicio .max-w-3xl{width:100%}
+  #hero-badge{font-size:.55rem!important;padding:.5rem 1rem!important;margin-bottom:1.2rem!important}
+  #hero-h1 span:nth-child(1){font-size:clamp(2rem,10vw,3.5rem)!important}
+  #hero-h1 span:nth-child(2){font-size:clamp(2.4rem,12vw,4rem)!important}
+  #hero-h1 span:nth-child(3){font-size:clamp(1.6rem,8vw,3rem)!important}
+  #hero-sub{font-size:1rem!important;margin-bottom:1.5rem!important}
+  #hero-btns{gap:.75rem!important}
+  #hero-btns a{padding:.9rem 1.5rem!important;font-size:.65rem!important;border-radius:999px;min-height:48px;width:100%}
+  #hero-stats{gap:.75rem!important;margin-top:1.5rem!important;flex-wrap:nowrap!important}
+  #hero-stats [data-count]{font-size:1.4rem!important}
+  #hero-stats .text-xs{font-size:.6rem!important}
+  #hero-stats .w-px{display:none}
 
-  /* Marquee text size */
-  .mqt span{font-size:.6rem!important;padding:.35rem 1rem!important}
+  /* ── Marquee ── */
+  .mqt span{font-size:.58rem!important;padding:.3rem .8rem!important}
 
-  /* Hero glow orbs: reduce on mobile */
-  #inicio .w-96{width:12rem}
-  #inicio .w-80{width:10rem}
+  /* ── Nosotros ── */
+  #nosotros-section .grid,
+  section .md\\:grid-cols-2{grid-template-columns:1fr!important}
+  .aspect-square{aspect-ratio:4/3!important}
 
-  /* WhatsApp float position */
-  #wa-fl{bottom:1rem;right:1rem;width:52px;height:52px}
+  /* ── Menu ── */
+  .grid.md\\:grid-cols-3{grid-template-columns:1fr!important;gap:1.25rem!important}
+  .mc{border-radius:1rem!important}
+  .mc .relative.h-48,.mc .relative.h-52{height:11rem!important}
+  .mc .relative.h-48 img,.mc .relative.h-52 img{height:100%!important;object-fit:cover!important}
 
-  /* Progress bar: hide on mobile */
-  #prog{display:none}
+  /* ── Promo ── */
+  #promos .flex-col.md\\:flex-row{flex-direction:column!important}
+  #promos .p-8,#promos .p-16{padding:1.25rem!important}
+  #promos img.rounded-2xl{aspect-ratio:4/3!important;width:100%!important}
+  #promos .flex-1.z-10.w-full{max-width:100%!important}
+
+  /* ── Gallery ── */
+  .grid.grid-cols-2.md\\:grid-cols-4{grid-template-columns:repeat(2,1fr)!important;gap:.5rem!important}
+  .gi{aspect-ratio:1/1!important;border-radius:.5rem!important}
+  .gi.md\\:mt-8{margin-top:0!important}
+  .gi img{width:100%!important;height:100%!important;object-fit:cover!important}
+
+  /* ── Contact ── */
+  #contacto .grid.grid-cols-1.md\\:grid-cols-2{grid-template-columns:1fr!important}
+  .rv-right.rounded-2xl{height:240px!important;width:100%!important}
+
+  /* ── CTA ── */
+  .py-20.md\\:py-28,#cta-sec{padding-top:3rem!important;padding-bottom:3rem!important}
+  #cta-sec svg{width:70px!important;height:79px!important}
+
+  /* ── Footer ── */
+  footer .grid.md\\:grid-cols-3{grid-template-columns:1fr!important;gap:1.5rem!important}
+  footer a,footer p,footer span:not([class*='Cinzel']){color:#C8B898!important}
+  footer .text-\\[\\#3A2E1A\\]{color:#C8B898!important}
+  footer .\\32A2010{color:#8A7040!important}
+
+  /* ── Buttons global ── */
+  .btn-gold,.btn-out{min-height:48px!important;padding:.9rem 1.5rem!important;font-size:.65rem!important;border-radius:999px!important;display:inline-flex!important;align-items:center!important;justify-content:center!important}
+  .w-full.btn-gold,.w-full.btn-out{width:100%!important}
+
+  /* ── WhatsApp ── */
+  #wa-fl{bottom:1rem!important;right:1rem!important;width:54px!important;height:54px!important;z-index:499}
+
+  /* ── Progress bar ── */
+  #prog{display:none!important}
 }
 </style>
 </head>
@@ -532,14 +643,14 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
 <div class="heat-line" style="margin:0;border-radius:0;"></div>
 
 <!-- NOSOTROS -->
-<section class="py-20 md:py-32 px-5 md:px-10" style="background:linear-gradient(160deg,#0A0805,#120D06);">
+<section id="nosotros-section" class="py-20 md:py-32 px-5 md:px-10" style="background:linear-gradient(160deg,#0A0805,#120D06);">
   <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-center">
     <div class="relative group rv-left">
       <div class="absolute -inset-5 bg-gold/8 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
       <div class="relative overflow-hidden rounded-2xl img-wrap">
         <img src="./images/pollo-restaurante.jpg"
              onerror="this.src='https://images.unsplash.com/photo-1527477396000-e27163b481c2?w=800&q=85';this.onerror=null;"
-             alt="Nuestro pollo a la brasa" class="w-full aspect-square object-cover grayscale hover:grayscale-0 transition-all duration-1000 hover:scale-105"/>
+             alt="Nuestro pollo a la brasa" loading="lazy" class="w-full aspect-square object-cover grayscale hover:grayscale-0 transition-all duration-1000 hover:scale-105"/>
         <div class="absolute top-4 left-4 border-t-2 border-l-2 border-gold w-10 h-10 pointer-events-none opacity-60"></div>
         <div class="absolute bottom-4 right-4 border-b-2 border-r-2 border-gold w-10 h-10 pointer-events-none opacity-60"></div>
       </div>
@@ -589,7 +700,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
         <div class="relative h-48 md:h-52 overflow-hidden">
           <img src="./images/medio-pollo.jpg"
                onerror="this.src='https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?w=600&q=85';this.onerror=null;"
-               alt="Pollo a la brasa" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
+               alt="Pollo a la brasa" loading="lazy" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
                style="filter:brightness(.8) saturate(1.3);"/>
           <div class="absolute inset-0 bg-gradient-to-t from-[#120D06] to-transparent"></div>
           <div class="absolute bottom-4 left-5 flex items-center gap-3">
@@ -632,7 +743,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
       <div class="mc rv-scale" data-delay="0.1" style="margin-top:0;md:margin-top:2rem">
         <div class="relative h-48 md:h-52 overflow-hidden">
           <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=600&q=85"
-               alt="Salchibrasa y extras" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
+               alt="Salchibrasa y extras" loading="lazy" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
                style="filter:brightness(.75) saturate(1.4);"/>
           <div class="absolute inset-0 bg-gradient-to-t from-[#120D06] to-transparent"></div>
           <div class="absolute bottom-4 left-5 flex items-center gap-3">
@@ -675,7 +786,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
       <div class="mc rv-scale" data-delay="0.2">
         <div class="relative h-48 md:h-52 overflow-hidden">
           <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?w=600&q=85"
-               alt="Bebidas" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
+               alt="Bebidas" loading="lazy" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
                style="filter:brightness(.7) saturate(1.3);"/>
           <div class="absolute inset-0 bg-gradient-to-t from-[#120D06] to-transparent"></div>
           <div class="absolute bottom-4 left-5 flex items-center gap-3">
@@ -747,7 +858,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
         <div class="relative">
           <img src="./images/pollo-clasico.jpg"
                onerror="this.src='https://images.unsplash.com/photo-1598103442097-8b74394b95c5?w=700&q=90';this.onerror=null;"
-               alt="Pollo entero con papas y ensalada" class="rounded-2xl shadow-2xl w-full object-cover aspect-video hover:scale-[1.03] transition-transform duration-700"
+               alt="Pollo entero con papas y ensalada" loading="lazy" class="rounded-2xl shadow-2xl w-full object-cover aspect-video hover:scale-[1.03] transition-transform duration-700"
                style="filter:brightness(.95) saturate(1.1);"/>
           <div class="absolute -top-3 -right-3 w-16 h-16 rounded-full flex items-center justify-center shadow-xl ani-float"
                style="background:linear-gradient(135deg,#BE3A1A,#E85A2A);font-family:'Cinzel',serif;font-size:.55rem;font-weight:800;color:white;letter-spacing:.05em;text-align:center;text-transform:uppercase;line-height:1.4;">
@@ -770,22 +881,22 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
       <div class="gi aspect-square rv-scale" data-delay="0">
         <img src="./images/medio-pollo.jpg"
              onerror="this.src='https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?w=500&q=85';this.onerror=null;"
-             alt="Medio pollo con papas" class="w-full h-full object-cover" style="filter:saturate(1.2) brightness(.88);"/>
+             alt="Medio pollo con papas" loading="lazy" class="w-full h-full object-cover" style="filter:saturate(1.2) brightness(.88);"/>
       </div>
       <div class="gi aspect-square rv-scale md:mt-8" data-delay="0.08">
         <img src="./images/rotisserie-fuego.jpg"
              onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=85';this.onerror=null;"
-             alt="Pollos en el horno a la brasa" class="w-full h-full object-cover" style="filter:saturate(1.3) brightness(.8);"/>
+             alt="Pollos en el horno a la brasa" loading="lazy" class="w-full h-full object-cover" style="filter:saturate(1.3) brightness(.8);"/>
       </div>
       <div class="gi aspect-square rv-scale" data-delay="0.16">
         <img src="./images/pollo-clasico.jpg"
              onerror="this.src='https://images.unsplash.com/photo-1598103442097-8b74394b95c5?w=500&q=85';this.onerror=null;"
-             alt="Pollo entero con acompañamientos" class="w-full h-full object-cover" style="filter:saturate(1.2) brightness(.88);"/>
+             alt="Pollo entero con acompañamientos" loading="lazy" class="w-full h-full object-cover" style="filter:saturate(1.2) brightness(.88);"/>
       </div>
       <div class="gi aspect-square rv-scale md:mt-8" data-delay="0.24">
         <img src="./images/pollo-restaurante.jpg"
              onerror="this.src='https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=500&q=85';this.onerror=null;"
-             alt="Pollo a la brasa en el restaurante" class="w-full h-full object-cover" style="filter:saturate(1.2) brightness(.88);"/>
+             alt="Pollo a la brasa en el restaurante" loading="lazy" class="w-full h-full object-cover" style="filter:saturate(1.2) brightness(.88);"/>
       </div>
     </div>
   </div>
@@ -866,7 +977,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
 </section>
 
 <!-- CTA FINAL -->
-<section class="py-20 md:py-28 px-5 text-center relative overflow-hidden" style="background:linear-gradient(135deg,#120D06,#1C1408,#0A0805);">
+<section id="cta-sec" class="py-20 md:py-28 px-5 text-center relative overflow-hidden" style="background:linear-gradient(135deg,#120D06,#1C1408,#0A0805);">
   <div class="absolute inset-0 pointer-events-none">
     <div class="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-gold/7 blur-3xl rounded-full"></div>
   </div>
@@ -1130,11 +1241,7 @@ document.querySelectorAll('.rv-scale').forEach((el)=>{
     scrollTrigger:{trigger:el,start:'top 88%',once:true}});
 });
 
-/* ── Counters ── */
-document.querySelectorAll('[data-count]').forEach(el=>{
-  const t=+el.dataset.count,o={v:0};
-  gsap.to(o,{v:t,duration:2.5,ease:'power2.out',delay:3.5,onUpdate(){el.textContent=Math.round(o.v);}});
-});
+/* ── Counters handled by scroll trigger below ── */
 
 /* ── 3D Tilt (desktop only) ── */
 if(window.matchMedia('(hover:hover)').matches){
@@ -1174,6 +1281,96 @@ window.addEventListener('scroll',()=>{
   let cur='';secs.forEach(s=>{if(scrollY>=s.offsetTop-200)cur=s.id;});
   nls.forEach(l=>l.classList.toggle('active',l.getAttribute('href')===`#${cur}`));
 },{passive:true});
+
+/* ── Logo spin on load ── */
+if(window.matchMedia('(hover:hover)').matches){
+  gsap.from('#navbar a>svg',{scale:0,rotation:-270,duration:1.1,delay:3.2,ease:'back.out(1.6)'});
+}
+
+/* ── Title underline trigger ── */
+document.querySelectorAll('h2').forEach(h=>{
+  h.classList.add('title-underline');
+  ScrollTrigger.create({trigger:h,start:'top 88%',once:true,
+    onEnter:()=>h.classList.add('in-view')});
+});
+
+/* ── Stat counter glow ── */
+document.querySelectorAll('[data-count]').forEach(el=>{
+  const orig=+el.dataset.count,o={v:0};
+  ScrollTrigger.create({trigger:el,start:'top 90%',once:true,
+    onEnter:()=>gsap.to(o,{v:orig,duration:2.5,ease:'power2.out',delay:.4,
+      onUpdate(){el.textContent=Math.round(o.v)},
+      onComplete(){el.classList.add('stat-counted')}})});
+});
+// Remove old counter to avoid double
+document.querySelectorAll('[data-count]').forEach(el=>delete el.dataset.count);
+
+/* ── Image parallax on non-mobile ── */
+if(window.matchMedia('(hover:hover)').matches){
+  document.querySelectorAll('.img-par img').forEach(img=>{
+    gsap.to(img,{yPercent:12,ease:'none',
+      scrollTrigger:{trigger:img.closest('.img-par'),start:'top bottom',end:'bottom top',scrub:1.5}});
+  });
+  /* Nosotros img soft parallax */
+  const nosImg=document.querySelector('#nosotros-section img');
+  if(nosImg) gsap.to(nosImg,{yPercent:8,ease:'none',
+    scrollTrigger:{trigger:'#nosotros-section',start:'top bottom',end:'bottom top',scrub:2}});
+}
+
+/* ── Section fire entrance burst (desktop) ── */
+if(window.matchMedia('(hover:hover)').matches){
+  document.querySelectorAll('section').forEach(sec=>{
+    ScrollTrigger.create({trigger:sec,start:'top 75%',once:true,
+      onEnter:()=>{
+        const r=sec.getBoundingClientRect();
+        for(let i=0;i<6;i++){
+          const sp=document.createElement('div');sp.className='spark';
+          const ang=Math.random()*360,dist=Math.random()*50+20;
+          const col=['#FFBA38','#D4940A','#BE3A1A','#FF6B35'][i%4];
+          sp.style.cssText=`width:5px;height:5px;left:${r.left+Math.random()*r.width}px;top:${r.top+scrollY}px;background:${col};box-shadow:0 0 8px ${col};--dx:${Math.cos(ang*Math.PI/180)*dist}px;--dy:${Math.sin(ang*Math.PI/180)*dist-30}px;`;
+          document.body.appendChild(sp);
+          setTimeout(()=>sp.remove(),500);
+        }
+      }
+    });
+  });
+}
+
+/* ── Smoke particles on marquee ── */
+if(window.matchMedia('(hover:hover)').matches){
+  const mq=document.querySelector('.py-4.overflow-hidden');
+  if(mq){
+    for(let i=0;i<6;i++){
+      const s=document.createElement('div');s.className='smoke-particle';
+      s.style.cssText=`left:${10+i*15}%;animation-duration:${2.5+Math.random()*2}s;animation-delay:${Math.random()*2}s;`;
+      mq.style.position='relative';mq.appendChild(s);
+    }
+  }
+}
+
+/* ── Icon pop class on material icons ── */
+document.querySelectorAll('.sc .material-symbols-outlined').forEach((ic,i)=>{
+  ic.classList.add('icon-pop');
+  ic.style.animationDelay=`${i*0.4}s`;
+});
+
+/* ── rv-fire reveals ── */
+document.querySelectorAll('.rv-fire').forEach((el,i)=>{
+  gsap.fromTo(el,{y:50,opacity:0},{y:0,opacity:1,duration:.9,ease:'power3.out',delay:i*.08,
+    scrollTrigger:{trigger:el,start:'top 88%',once:true}});
+});
+
+/* ── WhatsApp button fire burst ── */
+document.getElementById('wa-fl').addEventListener('click',()=>{
+  const r=document.getElementById('wa-fl').getBoundingClientRect();
+  const cx=r.left+r.width/2,cy=r.top+r.height/2;
+  for(let i=0;i<10;i++){
+    const sp=document.createElement('div');sp.className='spark';
+    const ang=(i/10)*360,dist=Math.random()*40+20;
+    sp.style.cssText=`width:6px;height:6px;left:${cx}px;top:${cy}px;background:#25D366;box-shadow:0 0 8px #25D366;--dx:${Math.cos(ang*Math.PI/180)*dist}px;--dy:${Math.sin(ang*Math.PI/180)*dist}px;`;
+    document.body.appendChild(sp);setTimeout(()=>sp.remove(),500);
+  }
+});
 </script>
 </body>
 </html>
