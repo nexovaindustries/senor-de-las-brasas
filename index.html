@@ -159,11 +159,47 @@ html,body,*,*::before,*::after{cursor:none!important}
 .rv-scale{opacity:0;transform:scale(.86)}
 
 /* ── Gallery ── */
-.gi{overflow:hidden;position:relative;border-radius:.75rem}
-.gi::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 55%);opacity:0;transition:opacity .4s}
+.gi{overflow:hidden;position:relative;border-radius:.75rem;border:1px solid rgba(212,148,10,.08)}
+.gi::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.75) 0%,rgba(190,58,26,.12) 50%,transparent 100%);opacity:0;transition:opacity .5s}
 .gi:hover::after{opacity:1}
-.gi img{transition:transform 1.2s cubic-bezier(.2,1,.3,1)}
-.gi:hover img{transform:scale(1.14)}
+.gi img{transition:transform 1.4s cubic-bezier(.2,1,.3,1)}
+.gi:hover img{transform:scale(1.12)}
+.gi::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(212,148,10,.15) 0%,transparent 60%);opacity:0;transition:opacity .5s;z-index:1;pointer-events:none}
+.gi:hover::before{opacity:1}
+
+/* ── Card fire border ── */
+@keyframes fireBorder{
+  0%,100%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+}
+.mc{position:relative}
+.mc::after{content:'';position:absolute;inset:-1px;border-radius:1.5rem;background:linear-gradient(90deg,#BE3A1A,#D4940A,#FFBA38,#D4940A,#BE3A1A);background-size:300% 100%;opacity:0;z-index:-1;transition:opacity .4s;animation:fireBorder 3s linear infinite}
+.mc:hover::after{opacity:.7}
+
+/* ── Image heat overlay (warm glow on hover) ── */
+.img-wrap{position:relative;overflow:hidden}
+.img-wrap::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(212,148,10,.25) 0%,rgba(190,58,26,.15) 50%,transparent 70%);opacity:0;transition:opacity .6s;pointer-events:none}
+.img-wrap:hover::after{opacity:1}
+
+/* ── Section fire glow ── */
+.sec-fire{position:relative}
+.sec-fire::before{content:'';position:absolute;bottom:0;left:0;right:0;height:200px;background:linear-gradient(to top,rgba(190,58,26,.12) 0%,transparent 100%);pointer-events:none;z-index:0}
+
+/* ── Animated shimmer on gold text ── */
+@keyframes shimmer{
+  0%{background-position:-200% center}
+  100%{background-position:200% center}
+}
+.gold-shimmer{background:linear-gradient(90deg,#D4940A 0%,#FFBA38 20%,#FFE066 35%,#FFBA38 50%,#D4940A 65%,#FFBA38 80%,#D4940A 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shimmer 4s linear infinite}
+
+/* ── Floating fire icons ── */
+.fire-float{position:absolute;pointer-events:none;font-size:1.2rem;opacity:0;animation:fireFloat linear infinite}
+@keyframes fireFloat{
+  0%{transform:translateY(0) scale(.6) rotate(0deg);opacity:0}
+  15%{opacity:.7}
+  80%{opacity:.2}
+  100%{transform:translateY(-120px) scale(.3) rotate(15deg);opacity:0}
+}
 
 /* ── Flame divider ── */
 .fdiv{position:relative;text-align:center;overflow:hidden}
@@ -189,9 +225,75 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
 
 /* ── Mobile ── */
 @media(max-width:767px){
-  .rv-up,.rv-left,.rv-right,.rv-scale{opacity:1;transform:none}
-  .mc:hover{transform:none;box-shadow:none}
-  .ember-p{display:none}
+  /* Reveals: skip animation, show immediately */
+  .rv-up,.rv-left,.rv-right,.rv-scale{opacity:1!important;transform:none!important}
+
+  /* No hover 3D effects on touch */
+  .mc:hover{transform:none!important;box-shadow:none!important}
+  .sc:hover{transform:none!important}
+  .gi:hover img{transform:none!important}
+  .gi:hover::after{opacity:0!important}
+  .btn-gold:hover,.btn-out:hover{transform:none!important}
+
+  /* Hide heavy effects on mobile */
+  .ember-p,.fork-trail,#fork-cur{display:none!important}
+  .fire-flick{animation:none}
+  body::after{display:none}
+
+  /* Hero */
+  #inicio{min-height:100svh}
+  #inicio .py-32{padding-top:7rem;padding-bottom:3rem}
+  #hero-stats{gap:1rem!important}
+  #hero-stats [data-count]{font-size:1.5rem!important}
+
+  /* Nav */
+  #navbar .px-5{padding-left:1rem;padding-right:1rem}
+  #navbar svg{width:40px;height:45px}
+
+  /* Menu cards */
+  .mc{border-radius:1rem}
+  .mc .relative.h-48{height:10rem}
+
+  /* Promo section */
+  #promos .p-8{padding:1.5rem}
+  #promos .p-16{padding:1.5rem}
+
+  /* Gallery: 2 cols */
+  .grid-cols-2.md\\:grid-cols-4{grid-template-columns:repeat(2,1fr)}
+  .gi.md\\:mt-8{margin-top:0!important}
+
+  /* Contact map */
+  .rv-right.rounded-2xl{height:260px!important}
+
+  /* Footer link colors (were nearly invisible) */
+  footer a,footer p{color:#C8B898!important}
+  footer .hover\\:text-gold:hover{color:#D4940A!important}
+
+  /* Touch targets */
+  a,button{min-height:44px;display:inline-flex;align-items:center;justify-content:center}
+  .nav-link{min-height:44px;display:inline-flex;align-items:center}
+
+  /* Prevent iOS zoom on tap */
+  input,select,textarea{font-size:16px!important}
+
+  /* Smooth scroll on iOS */
+  html{-webkit-overflow-scrolling:touch}
+
+  /* CTA section */
+  .py-20.md\\:py-28{padding-top:3.5rem;padding-bottom:3.5rem}
+
+  /* Marquee text size */
+  .mqt span{font-size:.6rem!important;padding:.35rem 1rem!important}
+
+  /* Hero glow orbs: reduce on mobile */
+  #inicio .w-96{width:12rem}
+  #inicio .w-80{width:10rem}
+
+  /* WhatsApp float position */
+  #wa-fl{bottom:1rem;right:1rem;width:52px;height:52px}
+
+  /* Progress bar: hide on mobile */
+  #prog{display:none}
 }
 </style>
 </head>
@@ -245,6 +347,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
 </svg>
 
 <div id="embers-cont" aria-hidden="true"></div>
+<div id="fire-icons-cont" aria-hidden="true"></div>
 
 <!-- NAV -->
 <nav id="navbar">
@@ -353,10 +456,11 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
 <!-- HERO -->
 <section id="inicio" class="relative min-h-screen flex items-center justify-center overflow-hidden">
   <div class="absolute inset-0 z-0">
-    <img src="https://images.unsplash.com/photo-1598103442097-8b74394b95c5?w=1600&q=90"
-         id="hero-bg" alt="Pollo a la brasa"
+    <img src="./images/rotisserie-fuego.jpg"
+         onerror="this.src='https://images.unsplash.com/photo-1598103442097-8b74394b95c5?w=1600&q=90';this.onerror=null;"
+         id="hero-bg" alt="Pollos a la brasa en el horno"
          class="w-full h-full object-cover"
-         style="filter:brightness(.45) saturate(1.4);"/>
+         style="filter:brightness(.45) saturate(1.3);"/>
     <div class="absolute inset-0 bg-gradient-to-t from-[#0A0805] via-[#0A0805]/20 to-[#0A0805]/40"></div>
     <div class="absolute inset-0 bg-gradient-to-r from-[#0A0805]/70 via-transparent to-transparent"></div>
   </div>
@@ -432,9 +536,10 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
   <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16 items-center">
     <div class="relative group rv-left">
       <div class="absolute -inset-5 bg-gold/8 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
-      <div class="relative overflow-hidden rounded-2xl">
-        <img src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=800&q=85"
-             alt="Pollo a la brasa en las llamas" class="w-full aspect-square object-cover grayscale hover:grayscale-0 transition-all duration-1000 hover:scale-105"/>
+      <div class="relative overflow-hidden rounded-2xl img-wrap">
+        <img src="./images/pollo-restaurante.jpg"
+             onerror="this.src='https://images.unsplash.com/photo-1527477396000-e27163b481c2?w=800&q=85';this.onerror=null;"
+             alt="Nuestro pollo a la brasa" class="w-full aspect-square object-cover grayscale hover:grayscale-0 transition-all duration-1000 hover:scale-105"/>
         <div class="absolute top-4 left-4 border-t-2 border-l-2 border-gold w-10 h-10 pointer-events-none opacity-60"></div>
         <div class="absolute bottom-4 right-4 border-b-2 border-r-2 border-gold w-10 h-10 pointer-events-none opacity-60"></div>
       </div>
@@ -482,9 +587,10 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
       <!-- Pollos -->
       <div class="mc rv-scale" data-delay="0">
         <div class="relative h-48 md:h-52 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?w=600&q=85"
-               alt="Pollo broaster" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
-               style="filter:brightness(.75) saturate(1.5);"/>
+          <img src="./images/medio-pollo.jpg"
+               onerror="this.src='https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?w=600&q=85';this.onerror=null;"
+               alt="Pollo a la brasa" class="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
+               style="filter:brightness(.8) saturate(1.3);"/>
           <div class="absolute inset-0 bg-gradient-to-t from-[#120D06] to-transparent"></div>
           <div class="absolute bottom-4 left-5 flex items-center gap-3">
             <span class="material-symbols-outlined text-3xl" style="color:#FFBA38;">restaurant</span>
@@ -626,7 +732,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
         </p>
         <div class="flex items-center gap-5 mb-7 justify-center md:justify-start">
           <span style="color:#6B5030;text-decoration:line-through;font-size:1.8rem;font-family:'Cinzel',serif;">S/. 62</span>
-          <span class="gold-grad ani-glow" style="font-family:'Cinzel',serif;font-size:clamp(2.5rem,7vw,4.5rem);font-weight:900;">S/. 58</span>
+          <span class="gold-shimmer ani-glow" style="font-family:'Cinzel',serif;font-size:clamp(2.5rem,7vw,4.5rem);font-weight:900;">S/. 58</span>
         </div>
         <div class="flex items-center gap-2 mb-7 justify-center md:justify-start" style="color:#C8B898;font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;">
           <span class="material-symbols-outlined text-gold text-sm">event</span>
@@ -639,9 +745,10 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
       </div>
       <div class="flex-1 z-10 w-full max-w-md">
         <div class="relative">
-          <img src="https://images.unsplash.com/photo-1527477396000-e27163b481c2?w=700&q=85"
-               alt="Pollo a la brasa" class="rounded-2xl shadow-2xl w-full object-cover aspect-video hover:scale-[1.03] transition-transform duration-700"
-               style="filter:brightness(.85) saturate(1.5);"/>
+          <img src="./images/pollo-clasico.jpg"
+               onerror="this.src='https://images.unsplash.com/photo-1598103442097-8b74394b95c5?w=700&q=90';this.onerror=null;"
+               alt="Pollo entero con papas y ensalada" class="rounded-2xl shadow-2xl w-full object-cover aspect-video hover:scale-[1.03] transition-transform duration-700"
+               style="filter:brightness(.95) saturate(1.1);"/>
           <div class="absolute -top-3 -right-3 w-16 h-16 rounded-full flex items-center justify-center shadow-xl ani-float"
                style="background:linear-gradient(135deg,#BE3A1A,#E85A2A);font-family:'Cinzel',serif;font-size:.55rem;font-weight:800;color:white;letter-spacing:.05em;text-align:center;text-transform:uppercase;line-height:1.4;">
             AHORRA<br/>S/. 4
@@ -661,20 +768,24 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
     </h2>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="gi aspect-square rv-scale" data-delay="0">
-        <img src="https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?w=500&q=85" alt="Pollo broaster crocante"
-             class="w-full h-full object-cover" style="filter:saturate(1.6) brightness(.85);"/>
+        <img src="./images/medio-pollo.jpg"
+             onerror="this.src='https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?w=500&q=85';this.onerror=null;"
+             alt="Medio pollo con papas" class="w-full h-full object-cover" style="filter:saturate(1.2) brightness(.88);"/>
       </div>
       <div class="gi aspect-square rv-scale md:mt-8" data-delay="0.08">
-        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=85" alt="Brasas encendidas"
-             class="w-full h-full object-cover" style="filter:saturate(1.6) brightness(.8);"/>
+        <img src="./images/rotisserie-fuego.jpg"
+             onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=85';this.onerror=null;"
+             alt="Pollos en el horno a la brasa" class="w-full h-full object-cover" style="filter:saturate(1.3) brightness(.8);"/>
       </div>
       <div class="gi aspect-square rv-scale" data-delay="0.16">
-        <img src="https://images.unsplash.com/photo-1598103442097-8b74394b95c5?w=500&q=85" alt="Pollo entero a la brasa"
-             class="w-full h-full object-cover" style="filter:saturate(1.4) brightness(.85);"/>
+        <img src="./images/pollo-clasico.jpg"
+             onerror="this.src='https://images.unsplash.com/photo-1598103442097-8b74394b95c5?w=500&q=85';this.onerror=null;"
+             alt="Pollo entero con acompañamientos" class="w-full h-full object-cover" style="filter:saturate(1.2) brightness(.88);"/>
       </div>
       <div class="gi aspect-square rv-scale md:mt-8" data-delay="0.24">
-        <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=500&q=85" alt="Salchibrasa y papas"
-             class="w-full h-full object-cover" style="filter:saturate(1.4) brightness(.85);"/>
+        <img src="./images/pollo-restaurante.jpg"
+             onerror="this.src='https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=500&q=85';this.onerror=null;"
+             alt="Pollo a la brasa en el restaurante" class="w-full h-full object-cover" style="filter:saturate(1.2) brightness(.88);"/>
       </div>
     </div>
   </div>
@@ -853,7 +964,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
           </svg>
           <span style="font-family:'Cinzel',serif;font-weight:800;font-size:.85rem;color:#D4940A;letter-spacing:.1em;text-transform:uppercase;">El Señor de las Brasas</span>
         </div>
-        <p style="color:#3A2E1A;font-family:'Raleway',sans-serif;font-size:.82rem;line-height:1.7;">
+        <p style="color:#C8B898;font-family:'Raleway',sans-serif;font-size:.82rem;line-height:1.7;">
           Tradición peruana a la leña desde 1998.<br/>Yanahuara, Arequipa.
         </p>
       </div>
@@ -861,9 +972,9 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
         <div>
           <span style="font-family:'Cinzel',serif;font-size:.65rem;color:#D4940A;letter-spacing:.2em;text-transform:uppercase;display:block;margin-bottom:.75rem;">Navegar</span>
           <div class="flex flex-col gap-3">
-            <a href="#menu"     style="color:#3A2E1A;font-size:.82rem;" class="hover:text-gold transition-colors">Menú</a>
-            <a href="#promos"   style="color:#3A2E1A;font-size:.82rem;" class="hover:text-gold transition-colors">Promos</a>
-            <a href="#contacto" style="color:#3A2E1A;font-size:.82rem;" class="hover:text-gold transition-colors">Contacto</a>
+            <a href="#menu"     style="color:#C8B898;font-size:.82rem;" class="hover:text-gold transition-colors">Menú</a>
+            <a href="#promos"   style="color:#C8B898;font-size:.82rem;" class="hover:text-gold transition-colors">Promos</a>
+            <a href="#contacto" style="color:#C8B898;font-size:.82rem;" class="hover:text-gold transition-colors">Contacto</a>
           </div>
         </div>
       </div>
@@ -958,6 +1069,21 @@ document.addEventListener('mouseup',()=>{
   }
 })();
 
+/* ── Floating fire icons ── */
+(function(){
+  const icons=['🔥','🍗','✨','🔥','🍗','🔥'];
+  const cont=document.getElementById('fire-icons-cont');
+  function spawnIcon(){
+    const el=document.createElement('div');el.className='fire-float';
+    el.textContent=icons[Math.floor(Math.random()*icons.length)];
+    const sz=Math.random()*.6+.7;
+    el.style.cssText=`left:${Math.random()*95}vw;bottom:${Math.random()*30}vh;font-size:${sz}rem;animation-duration:${Math.random()*4+3}s;animation-delay:0s;position:fixed;z-index:1;pointer-events:none;`;
+    cont.appendChild(el);
+    setTimeout(()=>el.remove(),(Math.random()*4+3)*1000);
+  }
+  setInterval(spawnIcon,900);
+})();
+
 /* ── Nav scroll + progress ── */
 window.addEventListener('scroll',()=>{
   document.getElementById('navbar').classList.toggle('scrolled',scrollY>60);
@@ -1021,6 +1147,14 @@ if(window.matchMedia('(hover:hover)').matches){
     card.addEventListener('mouseleave',()=>gsap.to(card,{rotateY:0,rotateX:0,duration:.7,ease:'power3.out'}));
   });
 }
+
+/* ── Gallery stagger fire reveal ── */
+gsap.utils.toArray('.gi').forEach((el,i)=>{
+  gsap.fromTo(el,
+    {scale:.9,opacity:0,filter:'brightness(.3) saturate(3)'},
+    {scale:1,opacity:1,filter:'brightness(1) saturate(1)',duration:1.1,ease:'power3.out',
+     delay:i*.09,scrollTrigger:{trigger:el,start:'top 90%',once:true}});
+});
 
 /* ── Magnetic buttons ── */
 if(window.matchMedia('(hover:hover)').matches){
