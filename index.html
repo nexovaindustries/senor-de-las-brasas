@@ -34,16 +34,16 @@ body{background:#0A0805;color:#F5ECD8;font-family:'Raleway',sans-serif;overflow-
 .material-symbols-outlined{font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24}
 
 /* ── Cursor ── */
-@media(hover:hover)and(pointer:fine){*,*::before,*::after{cursor:none!important}}
+html,body,*,*::before,*::after{cursor:none!important}
 #fork-cur{position:fixed;top:0;left:0;z-index:2147483647;pointer-events:none;
   transform:translate(-50%,-50%);
   filter:drop-shadow(0 0 6px rgba(212,148,10,.9))}
 .fork-trail{position:fixed;pointer-events:none;z-index:2147483640;
-  width:5px;height:5px;border-radius:50%;background:#FFBA38;
-  transform:translate(-50%,-50%)}
+  border-radius:50%;transform:translate(-50%,-50%)}
 @media(hover:none),(pointer:coarse){
+  html,body,*,*::before,*::after{cursor:auto!important}
   #fork-cur,.fork-trail{display:none!important}
-  *{cursor:auto!important}a,button{cursor:pointer!important}
+  a,button{cursor:pointer!important}
 }
 
 /* ── Progress bar ── */
@@ -66,7 +66,40 @@ body{background:#0A0805;color:#F5ECD8;font-family:'Raleway',sans-serif;overflow-
 
 /* ── Embers ── */
 .ember-p{position:fixed;pointer-events:none;z-index:0;border-radius:50%;opacity:0;animation:ef linear infinite}
-@keyframes ef{0%{transform:translateY(100vh) translateX(0) scale(0);opacity:0}10%{opacity:.7}50%{transform:translateY(50vh) translateX(25px) scale(1);opacity:.4}90%{opacity:.2}100%{transform:translateY(-10vh) translateX(-15px) scale(.3);opacity:0}}
+@keyframes ef{
+  0%{transform:translateY(100vh) translateX(0) scale(0) rotate(0deg);opacity:0}
+  8%{opacity:.9}
+  30%{transform:translateY(70vh) translateX(20px) scale(1) rotate(90deg);opacity:.7}
+  60%{transform:translateY(35vh) translateX(-18px) scale(.8) rotate(200deg);opacity:.4}
+  85%{opacity:.15}
+  100%{transform:translateY(-10vh) translateX(10px) scale(.2) rotate(360deg);opacity:0}
+}
+
+/* ── Fire effects ── */
+@keyframes firePulse{
+  0%,100%{text-shadow:0 0 15px #FF6B35,0 0 30px #D4940A,0 0 50px rgba(190,58,26,.6)}
+  50%{text-shadow:0 0 25px #FF6B35,0 0 50px #FFBA38,0 0 80px rgba(190,58,26,.9),0 0 120px rgba(212,148,10,.3)}
+}
+@keyframes fireWave{
+  0%,100%{transform:scaleX(1) scaleY(1) skewX(0deg);filter:brightness(1)}
+  20%{transform:scaleX(.96) scaleY(1.06) skewX(-1deg);filter:brightness(1.15)}
+  40%{transform:scaleX(1.04) scaleY(.97) skewX(1deg);filter:brightness(.95)}
+  70%{transform:scaleX(.98) scaleY(1.03) skewX(-.5deg);filter:brightness(1.1)}
+}
+@keyframes heatRise{
+  0%{background-position:0% 50%}
+  100%{background-position:400% 50%}
+}
+.fire-text{animation:firePulse 2.5s ease-in-out infinite}
+.fire-flick{animation:fireWave .7s ease-in-out infinite}
+.heat-line{height:2px;background:linear-gradient(90deg,transparent,#BE3A1A 15%,#D4940A 35%,#FFBA38 50%,#D4940A 65%,#BE3A1A 85%,transparent);background-size:300% 100%;animation:heatRise 2.8s linear infinite;margin:1rem 0}
+
+/* Fire spark burst on click */
+.spark{position:fixed;pointer-events:none;z-index:2147483646;border-radius:50%;animation:sparkOut .5s ease-out forwards}
+@keyframes sparkOut{
+  0%{transform:translate(-50%,-50%) scale(1);opacity:1}
+  100%{transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(0);opacity:0}
+}
 
 /* ── Nav ── */
 #navbar{position:fixed;top:0;width:100%;z-index:500;background:rgba(10,8,5,.75);
@@ -330,6 +363,11 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
   <div class="absolute inset-0 overflow-hidden pointer-events-none">
     <div class="absolute top-1/4 right-8 w-72 h-72 bg-gold/6 rounded-full blur-3xl"></div>
     <div class="absolute bottom-1/4 left-0 w-64 h-64 bg-ember/8 rounded-full blur-3xl"></div>
+    <!-- Fire glow orbs -->
+    <div class="absolute bottom-0 left-1/4 w-96 h-64 rounded-full blur-3xl" style="background:radial-gradient(ellipse,rgba(190,58,26,.25) 0%,transparent 70%);animation:float 4s ease-in-out infinite;"></div>
+    <div class="absolute bottom-0 right-1/4 w-80 h-56 rounded-full blur-3xl" style="background:radial-gradient(ellipse,rgba(212,148,10,.2) 0%,transparent 70%);animation:float 5s ease-in-out infinite;animation-delay:.8s;"></div>
+    <!-- Bottom fire line -->
+    <div class="absolute bottom-0 left-0 right-0 h-40 pointer-events-none" style="background:linear-gradient(to top,rgba(190,58,26,.35) 0%,rgba(212,148,10,.1) 40%,transparent 100%);"></div>
   </div>
 
   <div class="relative z-10 max-w-6xl mx-auto px-6 py-32 text-center md:text-left">
@@ -341,8 +379,8 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
       </div>
       <h1 id="hero-h1" class="leading-none mb-6" style="font-family:'Cinzel',serif;">
         <span class="block font-black text-cream" style="font-size:clamp(2.8rem,9vw,7rem);">EL SEÑOR</span>
-        <span class="block font-black gold-grad ani-glow" style="font-size:clamp(3.2rem,11vw,8.5rem);">DE LAS</span>
-        <span class="block font-black ember-grad" style="font-size:clamp(2.2rem,7vw,5.5rem);letter-spacing:.12em;">BRASAS</span>
+        <span class="block font-black gold-grad ani-glow fire-text" style="font-size:clamp(3.2rem,11vw,8.5rem);">DE LAS</span>
+        <span class="block font-black ember-grad fire-flick" style="font-size:clamp(2.2rem,7vw,5.5rem);letter-spacing:.12em;">BRASAS</span>
       </h1>
       <p id="hero-sub" class="mb-10 max-w-xl"
          style="font-family:'Cormorant Garamond',serif;font-size:clamp(1rem,2.5vw,1.3rem);font-style:italic;color:#C8B898;">
@@ -383,9 +421,11 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
 </section>
 
 <!-- MARQUEE -->
-<div class="py-4 overflow-hidden" style="background:linear-gradient(90deg,#BE3A1A,#D4940A,#BE3A1A);">
+<div class="heat-line" style="margin:0;border-radius:0;"></div>
+<div class="py-4 overflow-hidden" style="background:linear-gradient(90deg,#BE3A1A,#D4940A,#BE3A1A);box-shadow:0 0 40px rgba(190,58,26,.5),0 0 80px rgba(190,58,26,.2);">
   <div class="mqw"><div class="mqt" id="mqt"></div></div>
 </div>
+<div class="heat-line" style="margin:0;border-radius:0;"></div>
 
 <!-- NOSOTROS -->
 <section class="py-20 md:py-32 px-5 md:px-10" style="background:linear-gradient(160deg,#0A0805,#120D06);">
@@ -393,8 +433,8 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
     <div class="relative group rv-left">
       <div class="absolute -inset-5 bg-gold/8 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
       <div class="relative overflow-hidden rounded-2xl">
-        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=85"
-             alt="El Señor de las Brasas" class="w-full aspect-square object-cover grayscale hover:grayscale-0 transition-all duration-1000 hover:scale-105"/>
+        <img src="https://images.unsplash.com/photo-1529193591184-b1d58069ecdd?w=800&q=85"
+             alt="Pollo a la brasa en las llamas" class="w-full aspect-square object-cover grayscale hover:grayscale-0 transition-all duration-1000 hover:scale-105"/>
         <div class="absolute top-4 left-4 border-t-2 border-l-2 border-gold w-10 h-10 pointer-events-none opacity-60"></div>
         <div class="absolute bottom-4 right-4 border-b-2 border-r-2 border-gold w-10 h-10 pointer-events-none opacity-60"></div>
       </div>
@@ -621,20 +661,20 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9990;o
     </h2>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
       <div class="gi aspect-square rv-scale" data-delay="0">
-        <img src="https://images.unsplash.com/photo-1562967914-608f82629710?w=500&q=85" alt="Pollo broaster crocante"
-             class="w-full h-full object-cover" style="filter:saturate(1.5) brightness(.85);"/>
+        <img src="https://images.unsplash.com/photo-1569058242253-92a9c755a0ec?w=500&q=85" alt="Pollo broaster crocante"
+             class="w-full h-full object-cover" style="filter:saturate(1.6) brightness(.85);"/>
       </div>
       <div class="gi aspect-square rv-scale md:mt-8" data-delay="0.08">
         <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=85" alt="Brasas encendidas"
              class="w-full h-full object-cover" style="filter:saturate(1.6) brightness(.8);"/>
       </div>
       <div class="gi aspect-square rv-scale" data-delay="0.16">
-        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500&q=85" alt="Plato de pollo"
-             class="w-full h-full object-cover" style="filter:saturate(1.3) brightness(.85);"/>
+        <img src="https://images.unsplash.com/photo-1598103442097-8b74394b95c5?w=500&q=85" alt="Pollo entero a la brasa"
+             class="w-full h-full object-cover" style="filter:saturate(1.4) brightness(.85);"/>
       </div>
       <div class="gi aspect-square rv-scale md:mt-8" data-delay="0.24">
-        <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=500&q=85" alt="Mesa con pollo y acompañamientos"
-             class="w-full h-full object-cover" style="filter:saturate(1.3) brightness(.8);"/>
+        <img src="https://images.unsplash.com/photo-1573080496219-bb080dd4f877?w=500&q=85" alt="Salchibrasa y papas"
+             class="w-full h-full object-cover" style="filter:saturate(1.4) brightness(.85);"/>
       </div>
     </div>
   </div>
@@ -864,13 +904,30 @@ window.addEventListener('load', () => setTimeout(() => document.getElementById('
 /* ── Cursor fork ── */
 const forkEl = document.getElementById('fork-cur');
 let mx=0, my=0;
+const trailColors=['#FFBA38','#D4940A','#FF6B35','#BE3A1A','#E85A2A','#D4940A','#FFBA38','#FF6B35','#BE3A1A','#FFBA38','#D4940A','#FF6B35'];
 const trails = [];
-for(let i=0;i<8;i++){const d=document.createElement('div');d.className='fork-trail';document.body.appendChild(d);trails.push({el:d,x:0,y:0});}
+for(let i=0;i<12;i++){
+  const d=document.createElement('div');d.className='fork-trail';
+  const sz=Math.max(2,6-i*.35);
+  d.style.width=sz+'px';d.style.height=sz+'px';
+  d.style.background=trailColors[i];
+  d.style.boxShadow=`0 0 ${sz*2}px ${trailColors[i]}`;
+  document.body.appendChild(d);trails.push({el:d,x:0,y:0});
+}
 document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;gsap.to(forkEl,{x:mx,y:my,duration:.05,ease:'none'});});
 
-/* Fork STAB on click */
-document.addEventListener('mousedown',()=>{
+/* Fork STAB on click + spark burst */
+document.addEventListener('mousedown',e=>{
   gsap.to(forkEl,{rotation:40,scaleX:.75,scaleY:.7,duration:.15,ease:'power3.in'});
+  // Spark burst
+  const cols=['#FFBA38','#D4940A','#BE3A1A','#E85A2A','#FF6B35','#FFE066'];
+  for(let i=0;i<14;i++){
+    const sp=document.createElement('div');sp.className='spark';
+    const sz=Math.random()*6+3;const angle=Math.random()*360;const dist=Math.random()*60+20;
+    sp.style.cssText=`width:${sz}px;height:${sz}px;left:${e.clientX}px;top:${e.clientY}px;background:${cols[i%cols.length]};box-shadow:0 0 ${sz*2}px ${cols[i%cols.length]};--dx:${Math.cos(angle*Math.PI/180)*dist}px;--dy:${Math.sin(angle*Math.PI/180)*dist}px;`;
+    document.body.appendChild(sp);
+    setTimeout(()=>sp.remove(),500);
+  }
 });
 document.addEventListener('mouseup',()=>{
   gsap.to(forkEl,{rotation:0,scaleX:1,scaleY:1,duration:.5,ease:'elastic.out(1.2,.4)'});
@@ -879,9 +936,9 @@ document.addEventListener('mouseup',()=>{
 (function loop(){
   let x=mx,y=my;
   trails.forEach((t,i)=>{
-    t.x+=(x-t.x)*(0.32-i*.03);t.y+=(y-t.y)*(0.32-i*.03);
-    const s=1-i/8;
-    t.el.style.cssText=`left:${t.x}px;top:${t.y}px;opacity:${s*.4};transform:translate(-50%,-50%) scale(${s});`;
+    t.x+=(x-t.x)*(0.3-i*.018);t.y+=(y-t.y)*(0.3-i*.018);
+    const s=1-i/12;
+    t.el.style.cssText+=`position:fixed;left:${t.x}px;top:${t.y}px;opacity:${s*.5};transform:translate(-50%,-50%) scale(${s});`;
     x=t.x;y=t.y;
   });
   requestAnimationFrame(loop);
@@ -889,12 +946,14 @@ document.addEventListener('mouseup',()=>{
 
 /* ── Ember particles ── */
 (function(){
-  const cols=['#D4940A','#FFBA38','#BE3A1A','#E85A2A','#FFD700'];
+  const cols=['#D4940A','#FFBA38','#BE3A1A','#E85A2A','#FFD700','#FF6B35','#FFBA38','#D4940A','#FF8C00'];
   const c=document.getElementById('embers-cont');
-  for(let i=0;i<20;i++){
-    const e=document.createElement('div');const sz=Math.random()*5+2;
+  for(let i=0;i<45;i++){
+    const e=document.createElement('div');
+    const sz=Math.random()*7+1.5;
+    const col=cols[Math.floor(Math.random()*cols.length)];
     e.className='ember-p';
-    e.style.cssText=`width:${sz}px;height:${sz}px;background:${cols[i%cols.length]};left:${Math.random()*100}vw;animation-duration:${Math.random()*18+10}s;animation-delay:${Math.random()*14}s;box-shadow:0 0 ${sz*2}px ${cols[i%cols.length]};`;
+    e.style.cssText=`width:${sz}px;height:${sz}px;background:${col};left:${Math.random()*100}vw;animation-duration:${Math.random()*20+8}s;animation-delay:${Math.random()*18}s;box-shadow:0 0 ${sz*3}px ${col},0 0 ${sz*6}px ${col}55;`;
     c.appendChild(e);
   }
 })();
