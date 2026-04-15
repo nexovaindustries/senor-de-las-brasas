@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>El Señor de las Brasas - Pollo a la Leña</title>
+
+<!-- Tailwind config ANTES del CDN -->
+<script>
+  tailwind = { config: {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "on-primary": "#432c00",
+          "on-background": "#e5e2e1",
+          "primary-fixed-dim": "#ffba38",
+          "secondary": "#ffb5a0",
+          "on-tertiary-fixed-variant": "#4a4737",
+          "on-secondary": "#5f1500",
+          "on-tertiary": "#333121",
+          "on-tertiary-fixed": "#1e1c0e",
+          "surface-bright": "#393939",
+          "outline-variant": "#514532",
+          "on-tertiary-container": "#534f3e",
+          "tertiary-fixed": "#e9e2cc",
+          "secondary-container": "#d33a01",
+          "background": "#131313",
+          "error-container": "#93000a",
+          "primary-container": "#ffb300",
+          "on-secondary-fixed-variant": "#872100",
+          "surface-variant": "#353534",
+          "surface-container-low": "#1c1b1b",
+          "on-primary-fixed-variant": "#604100",
+          "inverse-surface": "#e5e2e1",
+          "on-surface": "#e5e2e1",
+          "tertiary-fixed-dim": "#ccc6b1",
+          "error": "#ffb4ab",
+          "on-primary-container": "#6b4900",
+          "on-primary-fixed": "#281900",
+          "outline": "#9e8e78",
+          "surface-container-highest": "#353534",
+          "surface-dim": "#131313",
+          "tertiary": "#e3ddc7",
+          "on-error-container": "#ffdad6",
+          "inverse-primary": "#7e5700",
+          "on-secondary-fixed": "#3b0900",
+          "surface-container": "#201f1f",
+          "inverse-on-surface": "#313030",
+          "primary": "#ffd79b",
+          "surface-container-high": "#2a2a2a",
+          "tertiary-container": "#c7c1ac",
+          "on-secondary-container": "#fff7f5",
+          "surface-tint": "#ffba38",
+          "surface-container-lowest": "#0e0e0e",
+          "on-error": "#690005",
+          "primary-fixed": "#ffdeac",
+          "secondary-fixed-dim": "#ffb5a0",
+          "on-surface-variant": "#d6c4ac",
+          "surface": "#131313",
+          "secondary-fixed": "#ffdbd1"
+        },
+        borderRadius: {
+          DEFAULT: "0.375rem",
+          lg: "0.5rem",
+          xl: "0.75rem",
+          full: "9999px"
+        },
+        fontFamily: {
+          headline: ["Epilogue"],
+          body: ["Manrope"],
+          label: ["Manrope"]
+        }
+      }
+    }
+  }}
+</script>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700;800;900&family=Manrope:wght@300;400;500;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+<style>
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+</style>
+</head>
+
+<body class="bg-background text-on-background font-body selection:bg-primary selection:text-on-primary">
+
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 w-full z-50 bg-neutral-900/70 backdrop-blur-xl shadow-2xl shadow-black/40 flex justify-between items-center px-8 py-4">
+  <div class="text-2xl font-bold tracking-tighter text-amber-500 uppercase font-headline">
+    El Señor de las Brasas
+  </div>
+  <div class="hidden md:flex gap-8 items-center font-headline tracking-tight">
+    <a class="text-amber-400 border-b-2 border-amber-400 pb-1 hover:scale-105 transition-transform duration-300" href="#">Inicio</a>
+    <a class="text-neutral-300 hover:text-amber-200 transition-colors hover:scale-105 transition-transform duration-300" href="#menu">Menú</a>
+    <a class="text-neutral-300 hover:text-amber-200 transition-colors hover:scale-105 transition-transform duration-300" href="#promos">Promos</a>
+    <a class="text-neutral-300 hover:text-amber-200 transition-colors hover:scale-105 transition-transform duration-300" href="#contacto">Contacto</a>
+  </div>
+  <div class="flex gap-4">
+    <a href="https://wa.me/51946779952?text=Hola!%20Quiero%20hacer%20un%20pedido%20🍗"
+       target="_blank" rel="noopener"
+       class="bg-primary-container text-on-primary-fixed font-bold py-2 px-6 rounded hover:scale-105 transition-transform duration-300 active:scale-95">
+      Pedir ahora
+    </a>
+  </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+  <div class="absolute inset-0 z-0">
+    <img class="w-full h-full object-cover brightness-[0.3]"
+         src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1400&q=90"
+         alt="Pollo a la leña El Señor de las Brasas"/>
+    <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+  </div>
+  <div class="relative z-10 text-center px-6 max-w-4xl">
+    <h1 class="font-headline text-5xl md:text-8xl font-black tracking-tighter text-on-background mb-4 uppercase">
+      El Señor de <span class="text-primary-container">las Brasas</span>
+    </h1>
+    <p class="font-body text-xl md:text-2xl text-on-surface-variant mb-10 font-light tracking-wide italic">
+      "El auténtico sabor del pollo a la leña"
+    </p>
+    <div class="flex flex-col md:flex-row gap-4 justify-center">
+      <a class="bg-gradient-to-br from-primary to-primary-container text-on-primary-fixed px-10 py-4 rounded-lg font-bold text-lg hover:scale-105 transition-all shadow-xl shadow-primary-container/20" href="#menu">
+        Ver Menú
+      </a>
+      <a class="bg-surface-container-high border border-outline-variant/30 text-primary px-10 py-4 rounded-lg font-bold text-lg hover:bg-surface-container-highest transition-all flex items-center justify-center gap-2"
+         href="https://wa.me/51946779952?text=Hola!%20Quiero%20hacer%20un%20pedido%20🍗" target="_blank" rel="noopener">
+        <span class="material-symbols-outlined">chat</span>
+        Pedir por WhatsApp
+      </a>
+    </div>
+  </div>
+  <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+    <span class="material-symbols-outlined text-primary text-4xl">expand_more</span>
+  </div>
+</section>
+
+<!-- Sobre Nosotros -->
+<section class="py-24 px-6 md:px-20 bg-surface-container-lowest">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+    <div class="relative group">
+      <div class="absolute -inset-4 bg-primary/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+      <img class="relative rounded-xl shadow-2xl grayscale hover:grayscale-0 transition-all duration-700 w-full aspect-square object-cover"
+           src="https://images.unsplash.com/photo-1598103442097-8b74394b95c5?w=800&q=80"
+           alt="Pollo a la brasa artesanal"/>
+    </div>
+    <div>
+      <h2 class="font-headline text-4xl md:text-5xl font-extrabold text-on-background mb-8 tracking-tight">
+        Nuestra <span class="text-primary">Tradición</span>
+      </h2>
+      <div class="space-y-6 text-on-surface-variant font-light text-lg leading-relaxed">
+        <p>En <span class="text-primary-fixed-dim font-bold">El Señor de las Brasas</span>, no solo cocinamos pollo; honramos una herencia gastronómica que se siente en cada fibra de nuestra carne jugosa y piel crocante.</p>
+        <p>Utilizamos exclusivamente leña seleccionada, garantizando ese aroma ahumado que solo el carbón auténtico puede otorgar. Cada ave es marinada por 24 horas con nuestra receta secreta de hierbas andinas y especias tradicionales.</p>
+      </div>
+      <div class="mt-12 grid grid-cols-3 gap-4">
+        <div class="text-center p-4 bg-surface-container-low rounded-lg">
+          <span class="material-symbols-outlined text-primary text-3xl mb-2">local_fire_department</span>
+          <p class="text-xs font-bold uppercase tracking-widest text-on-surface">100% Leña</p>
+        </div>
+        <div class="text-center p-4 bg-surface-container-low rounded-lg">
+          <span class="material-symbols-outlined text-primary text-3xl mb-2">timer</span>
+          <p class="text-xs font-bold uppercase tracking-widest text-on-surface">24h Marinado</p>
+        </div>
+        <div class="text-center p-4 bg-surface-container-low rounded-lg">
+          <span class="material-symbols-outlined text-primary text-3xl mb-2">restaurant</span>
+          <p class="text-xs font-bold uppercase tracking-widest text-on-surface">Calidad Premium</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Digital Menu -->
+<section class="py-24 px-6 md:px-20 bg-background" id="menu">
+  <div class="max-w-7xl mx-auto">
+    <header class="text-center mb-16">
+      <h2 class="font-headline text-4xl md:text-6xl font-black mb-4 uppercase tracking-tighter">Menú <span class="text-primary-container">Digital</span></h2>
+      <p class="text-on-surface-variant font-medium">Sabor que trasciende, tradición en cada bocado.</p>
+    </header>
+    <div class="grid md:grid-cols-3 gap-8">
+
+      <!-- Pollos -->
+      <div class="bg-surface-container-low p-8 rounded-xl flex flex-col">
+        <div class="flex items-center gap-3 mb-8">
+          <span class="material-symbols-outlined text-primary-container text-4xl">restaurant</span>
+          <h3 class="font-headline text-2xl font-bold uppercase">Pollos</h3>
+        </div>
+        <div class="space-y-8">
+          <div>
+            <div class="flex justify-between items-end mb-2">
+              <span class="text-xl font-bold text-on-background">1 Pollo Entero</span>
+              <span class="text-primary-container font-headline font-black text-xl">S/. 62</span>
+            </div>
+            <p class="text-sm text-on-surface-variant font-light italic">Incluye Papas fritas + Ensalada + Cremas</p>
+          </div>
+          <div>
+            <div class="flex justify-between items-end mb-2">
+              <span class="text-xl font-bold text-on-background">1/2 Pollo</span>
+              <span class="text-primary-container font-headline font-black text-xl">S/. 32</span>
+            </div>
+            <p class="text-sm text-on-surface-variant font-light italic">Incluye Papas fritas + Ensalada + Cremas</p>
+          </div>
+          <div>
+            <div class="flex justify-between items-end mb-2">
+              <span class="text-xl font-bold text-on-background">1/4 Pollo</span>
+              <span class="text-primary-container font-headline font-black text-xl">S/. 18</span>
+            </div>
+            <p class="text-sm text-on-surface-variant font-light italic">Incluye Papas fritas + Ensalada + Cremas</p>
+          </div>
+        </div>
+        <div class="mt-auto pt-10">
+          <img class="w-full h-32 object-cover rounded-lg brightness-75 hover:brightness-100 transition-all"
+               src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=600&q=80"
+               alt="Pollo a la brasa con papas"/>
+        </div>
+      </div>
+
+      <!-- Otros -->
+      <div class="bg-surface-container-high p-8 rounded-xl border border-primary/10 flex flex-col">
+        <div class="flex items-center gap-3 mb-8">
+          <span class="material-symbols-outlined text-primary-container text-4xl">skillet</span>
+          <h3 class="font-headline text-2xl font-bold uppercase">Otros</h3>
+        </div>
+        <div class="space-y-8">
+          <div class="flex justify-between items-center">
+            <div>
+              <h4 class="font-bold">Salchibrasa</h4>
+              <p class="text-xs text-on-surface-variant uppercase tracking-widest">Favorito de la casa</p>
+            </div>
+            <span class="text-primary font-headline font-black text-lg">S/. 15</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <div>
+              <h4 class="font-bold">Porción de papas</h4>
+              <p class="text-xs text-on-surface-variant uppercase tracking-widest">Naturales &amp; Crocantes</p>
+            </div>
+            <span class="text-primary font-headline font-black text-lg">S/. 12</span>
+          </div>
+          <div class="flex justify-between items-center">
+            <div>
+              <h4 class="font-bold">Ensalada Familiar</h4>
+              <p class="text-xs text-on-surface-variant uppercase tracking-widest">Frescura Total</p>
+            </div>
+            <span class="text-primary font-headline font-black text-lg">S/. 10</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bebidas -->
+      <div class="bg-surface-container-low p-8 rounded-xl flex flex-col">
+        <div class="flex items-center gap-3 mb-8">
+          <span class="material-symbols-outlined text-primary-container text-4xl">local_bar</span>
+          <h3 class="font-headline text-2xl font-bold uppercase">Bebidas</h3>
+        </div>
+        <div class="space-y-6">
+          <div class="flex justify-between border-b border-outline-variant/10 pb-3">
+            <span class="font-medium">Chicha Morada (Jarra)</span>
+            <span class="text-primary-container font-black">S/. 12</span>
+          </div>
+          <div class="flex justify-between border-b border-outline-variant/10 pb-3">
+            <span class="font-medium">Maracuyá (Jarra)</span>
+            <span class="text-primary-container font-black">S/. 12</span>
+          </div>
+          <div class="flex justify-between border-b border-outline-variant/10 pb-3">
+            <span class="font-medium">Gaseosas Personales</span>
+            <span class="text-primary-container font-black">S/. 4</span>
+          </div>
+          <div class="flex justify-between border-b border-outline-variant/10 pb-3">
+            <span class="font-medium">Inca Kola 1.5L</span>
+            <span class="text-primary-container font-black">S/. 10</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Promociones -->
+<section class="py-24 bg-surface-container-lowest" id="promos">
+  <div class="max-w-7xl mx-auto px-6">
+    <div class="relative overflow-hidden rounded-3xl bg-secondary-container/10 border-2 border-secondary/20 p-8 md:p-16 flex flex-col md:flex-row items-center gap-12">
+      <div class="absolute -top-24 -right-24 w-96 h-96 bg-secondary/10 blur-[120px] rounded-full"></div>
+      <div class="flex-1 text-center md:text-left z-10">
+        <span class="inline-block px-4 py-1 bg-secondary text-on-secondary rounded-full text-xs font-black uppercase tracking-widest mb-6">Promoción Imperdible</span>
+        <h2 class="font-headline text-5xl md:text-7xl font-black text-on-background mb-4 leading-none">LA GRAN PROMO</h2>
+        <p class="text-2xl font-light text-secondary mb-8">Pollo Entero + Papas + Ensalada + Cremas</p>
+        <div class="flex items-center justify-center md:justify-start gap-4 mb-8">
+          <span class="text-on-surface-variant line-through text-3xl">S/. 62</span>
+          <span class="text-primary-container font-headline text-6xl font-black drop-shadow-lg">S/. 58</span>
+        </div>
+        <div class="flex items-center gap-2 text-on-surface-variant font-bold uppercase tracking-tighter">
+          <span class="material-symbols-outlined text-secondary">event</span>
+          Válido Martes, Miércoles y Jueves
+        </div>
+      </div>
+      <div class="flex-1 z-10 w-full max-w-md">
+        <div class="relative">
+          <img class="rounded-2xl shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-500 w-full object-cover aspect-video"
+               src="https://images.unsplash.com/photo-1594041680534-e8c8cdebd659?w=600&q=80"
+               alt="Pollo a la brasa dorado"/>
+          <div class="absolute -bottom-4 -left-4 bg-background p-4 rounded-xl shadow-xl border border-outline-variant/20">
+            <p class="text-xs font-black text-primary uppercase">¡Pídelo ya!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Galería -->
+<section class="py-24 bg-background">
+  <div class="max-w-full px-4 overflow-hidden">
+    <h2 class="font-headline text-center text-3xl font-bold mb-16 tracking-widest uppercase opacity-40">#ElSeñorDeLasBrasas</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="overflow-hidden aspect-square">
+        <img class="w-full h-full object-cover hover:scale-110 transition-transform duration-1000"
+             src="https://images.unsplash.com/photo-1604908177522-bc36545c4a24?w=500&q=80"
+             alt="Pollo con papas y salsas"/>
+      </div>
+      <div class="overflow-hidden aspect-square md:mt-12">
+        <img class="w-full h-full object-cover hover:scale-110 transition-transform duration-1000"
+             src="https://images.unsplash.com/photo-1598514982901-4baa7d4a8fb0?w=500&q=80"
+             alt="Piel crocante pollo a la brasa"/>
+      </div>
+      <div class="overflow-hidden aspect-square">
+        <img class="w-full h-full object-cover hover:scale-110 transition-transform duration-1000"
+             src="https://images.unsplash.com/photo-1544025162-d76538375d63?w=500&q=80"
+             alt="Brasas y leña encendida"/>
+      </div>
+      <div class="overflow-hidden aspect-square md:mt-12">
+        <img class="w-full h-full object-cover hover:scale-110 transition-transform duration-1000"
+             src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=500&q=80"
+             alt="Mesa con pollo y acompañamientos"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Ubicación y Contacto -->
+<section class="py-24 px-6 md:px-20 bg-surface-container-lowest" id="contacto">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid md:grid-cols-2 gap-16">
+      <div>
+        <h2 class="font-headline text-4xl font-black mb-10 text-on-background">
+          Visítanos y <span class="text-primary">Enamórate</span>
+        </h2>
+        <div class="space-y-8">
+          <div class="flex gap-6">
+            <div class="bg-surface-container p-4 rounded-lg h-fit">
+              <span class="material-symbols-outlined text-primary text-3xl">location_on</span>
+            </div>
+            <div>
+              <h4 class="font-bold text-xl mb-1">Dirección</h4>
+              <p class="text-on-surface-variant font-light">Av. Metropolitana - Yanahuara, Arequipa, Perú</p>
+            </div>
+          </div>
+          <div class="flex gap-6">
+            <div class="bg-surface-container p-4 rounded-lg h-fit">
+              <span class="material-symbols-outlined text-primary text-3xl">call</span>
+            </div>
+            <div>
+              <h4 class="font-bold text-xl mb-1">Teléfono</h4>
+              <p class="text-on-surface-variant font-light">946 779 952</p>
+            </div>
+          </div>
+          <div class="flex gap-6">
+            <div class="bg-surface-container p-4 rounded-lg h-fit">
+              <span class="material-symbols-outlined text-primary text-3xl">schedule</span>
+            </div>
+            <div>
+              <h4 class="font-bold text-xl mb-1">Horario de Atención</h4>
+              <p class="text-on-surface-variant font-light">Lunes a Domingo: 11:30 AM - 10:00 PM</p>
+            </div>
+          </div>
+          <a href="https://wa.me/51946779952?text=Hola!%20Quiero%20hacer%20un%20pedido%20🍗"
+             target="_blank" rel="noopener"
+             class="inline-flex items-center gap-3 bg-[#25D366] text-white px-8 py-4 rounded-full font-bold hover:bg-[#1ea855] transition-colors shadow-lg">
+            <svg class="w-5 h-5 fill-white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Escribir por WhatsApp
+          </a>
+        </div>
+      </div>
+
+      <!-- Mapa Google Maps real -->
+      <div class="rounded-3xl overflow-hidden shadow-2xl border border-outline-variant/10 min-h-[400px]">
+        <iframe
+          title="Ubicación El Señor de las Brasas"
+          src="https://maps.google.com/maps?q=Av.+Metropolitana+Yanahuara+Arequipa+Peru&t=&z=15&ie=UTF8&iwloc=&output=embed"
+          width="100%" height="100%"
+          style="border:0; display:block; min-height:400px; filter:grayscale(100%) invert(90%) contrast(85%);"
+          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-neutral-950 flex flex-col items-center justify-center py-12 px-6 gap-6 w-full border-t border-amber-900/20">
+  <div class="text-lg font-bold text-amber-500 font-headline uppercase tracking-tighter">
+    El Señor de las Brasas
+  </div>
+  <div class="flex gap-8 items-center justify-center flex-wrap">
+    <a class="text-neutral-500 hover:text-amber-300 transition-colors font-light" href="#">Facebook</a>
+    <a class="text-neutral-500 hover:text-amber-300 transition-colors font-light" href="#">Instagram</a>
+    <a class="text-neutral-500 hover:text-amber-300 transition-colors font-light"
+       href="https://wa.me/51946779952" target="_blank" rel="noopener">WhatsApp</a>
+    <a class="text-neutral-500 hover:text-amber-300 transition-colors font-light" href="#contacto">Ubicación</a>
+  </div>
+  <p class="text-neutral-500 font-light text-sm text-center">
+    © 2024 El Señor de las Brasas. Tradición Peruana a la Leña.
+  </p>
+</footer>
+
+<!-- Floating WhatsApp Button -->
+<a class="fixed bottom-8 right-8 z-50 bg-primary text-on-primary w-16 h-16 rounded-full flex items-center justify-center shadow-[0_20px_40px_rgba(0,0,0,0.4)] hover:scale-110 transition-all group"
+   href="https://wa.me/51946779952?text=Hola!%20Quiero%20hacer%20un%20pedido%20🍗"
+   target="_blank" rel="noopener" aria-label="Pedir por WhatsApp">
+  <span class="material-symbols-outlined text-3xl">shopping_cart</span>
+  <span class="absolute right-20 bg-background text-on-background px-4 py-2 rounded-lg text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-outline-variant/30">
+    Pedir Delivery
+  </span>
+</a>
+
+</body>
+</html>
