@@ -1,399 +1,962 @@
 <!DOCTYPE html>
-<html class="dark" lang="es">
+<html lang="es" class="dark">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>El Señor de las Brasas - Pollo a la Leña</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>El Señor de las Brasas — Pollo a la Leña · Arequipa</title>
+
+<!-- Fuentes elegantes -->
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,600&family=Raleway:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@400,1&display=swap" rel="stylesheet"/>
+
+<!-- GSAP -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 
 <!-- Tailwind config ANTES del CDN -->
 <script>
   tailwind = { config: {
-    darkMode: "class",
-    theme: {
-      extend: {
-        colors: {
-          "on-primary": "#432c00",
-          "on-background": "#e5e2e1",
-          "primary-fixed-dim": "#ffba38",
-          "secondary": "#ffb5a0",
-          "on-tertiary-fixed-variant": "#4a4737",
-          "on-secondary": "#5f1500",
-          "on-tertiary": "#333121",
-          "on-tertiary-fixed": "#1e1c0e",
-          "surface-bright": "#393939",
-          "outline-variant": "#514532",
-          "on-tertiary-container": "#534f3e",
-          "tertiary-fixed": "#e9e2cc",
-          "secondary-container": "#d33a01",
-          "background": "#131313",
-          "error-container": "#93000a",
-          "primary-container": "#ffb300",
-          "on-secondary-fixed-variant": "#872100",
-          "surface-variant": "#353534",
-          "surface-container-low": "#1c1b1b",
-          "on-primary-fixed-variant": "#604100",
-          "inverse-surface": "#e5e2e1",
-          "on-surface": "#e5e2e1",
-          "tertiary-fixed-dim": "#ccc6b1",
-          "error": "#ffb4ab",
-          "on-primary-container": "#6b4900",
-          "on-primary-fixed": "#281900",
-          "outline": "#9e8e78",
-          "surface-container-highest": "#353534",
-          "surface-dim": "#131313",
-          "tertiary": "#e3ddc7",
-          "on-error-container": "#ffdad6",
-          "inverse-primary": "#7e5700",
-          "on-secondary-fixed": "#3b0900",
-          "surface-container": "#201f1f",
-          "inverse-on-surface": "#313030",
-          "primary": "#ffd79b",
-          "surface-container-high": "#2a2a2a",
-          "tertiary-container": "#c7c1ac",
-          "on-secondary-container": "#fff7f5",
-          "surface-tint": "#ffba38",
-          "surface-container-lowest": "#0e0e0e",
-          "on-error": "#690005",
-          "primary-fixed": "#ffdeac",
-          "secondary-fixed-dim": "#ffb5a0",
-          "on-surface-variant": "#d6c4ac",
-          "surface": "#131313",
-          "secondary-fixed": "#ffdbd1"
-        },
-        borderRadius: {
-          DEFAULT: "0.375rem",
-          lg: "0.5rem",
-          xl: "0.75rem",
-          full: "9999px"
-        },
-        fontFamily: {
-          headline: ["Epilogue"],
-          body: ["Manrope"],
-          label: ["Manrope"]
-        }
+    darkMode: 'class',
+    theme: { extend: {
+      colors: {
+        charcoal: '#0A0805',
+        'charcoal-2': '#120D06',
+        'charcoal-3': '#1C1408',
+        gold: '#D4940A',
+        'gold-light': '#FFBA38',
+        'gold-dim': '#A06E05',
+        ember: '#BE3A1A',
+        'ember-light': '#E85A2A',
+        cream: '#F5ECD8',
+        'cream-soft': '#C8B898',
+        smoke: '#2A2015',
+      },
+      fontFamily: {
+        display: ['Cinzel', 'serif'],
+        serif: ['Cormorant Garamond', 'serif'],
+        sans: ['Raleway', 'sans-serif'],
       }
-    }
-  }}
+    }}
+  }
 </script>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-
-<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700;800;900&family=Manrope:wght@300;400;500;700&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
 
 <style>
-  .material-symbols-outlined {
-    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-  }
+/* ── Base ──────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
+body { background: #0A0805; color: #F5ECD8; font-family: 'Raleway', sans-serif;
+       overflow-x: hidden; }
+.material-symbols-outlined { font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24; }
+
+/* ── Cursor tenedor ────────────────────────────────── */
+@media (hover: hover) and (pointer: fine) {
+  *, *::before, *::after { cursor: none !important; }
+}
+#fork-cursor {
+  position: fixed; top: 0; left: 0; z-index: 2147483647;
+  pointer-events: none; transform: translate(-50%, -50%);
+  transition: transform 0.08s ease;
+  filter: drop-shadow(0 0 6px rgba(212,148,10,0.8));
+}
+#fork-cursor.clicking { transform: translate(-50%,-50%) scale(0.85) rotate(20deg); }
+
+/* Trail */
+.fork-trail {
+  position: fixed; pointer-events: none; z-index: 2147483640;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: #FFBA38; opacity: 0;
+  transform: translate(-50%, -50%);
+}
+
+@media (hover: none), (pointer: coarse) {
+  #fork-cursor, .fork-trail { display: none !important; }
+  * { cursor: auto !important; }
+  a, button { cursor: pointer !important; }
+}
+
+/* ── Barra de progreso ─────────────────────────────── */
+#progress-bar {
+  position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+  background: linear-gradient(90deg, #BE3A1A, #D4940A, #FFBA38);
+  z-index: 9999; pointer-events: none;
+  box-shadow: 0 0 10px rgba(212,148,10,0.7);
+}
+
+/* ── Preloader ─────────────────────────────────────── */
+#preloader {
+  position: fixed; inset: 0; z-index: 9998;
+  background: #0A0805;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 1.5rem;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+#preloader.hide { opacity: 0; visibility: hidden; }
+
+/* flame animation behind chicken */
+@keyframes flameFlicker {
+  0%,100% { transform: scaleY(1) scaleX(1); opacity:.9; }
+  25%      { transform: scaleY(1.08) scaleX(.96); opacity:1; }
+  50%      { transform: scaleY(.95) scaleX(1.04); opacity:.85; }
+  75%      { transform: scaleY(1.05) scaleX(.98); opacity:1; }
+}
+.flame-anim { animation: flameFlicker 0.6s ease-in-out infinite; transform-origin: bottom center; }
+
+@keyframes rotateSpit {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+#chicken-body { animation: rotateSpit 2.5s linear infinite; transform-origin: 100px 72px; }
+
+.loader-dot { display:inline-block; width:8px; height:8px; border-radius:50%; margin: 0 3px;
+              animation: dotBounce .9s ease-in-out infinite; }
+.loader-dot:nth-child(1) { background:#D4940A; }
+.loader-dot:nth-child(2) { background:#BE3A1A; animation-delay:.2s; }
+.loader-dot:nth-child(3) { background:#FFBA38; animation-delay:.4s; }
+@keyframes dotBounce {
+  0%,80%,100% { transform: translateY(0); }
+  40%          { transform: translateY(-12px); }
+}
+
+/* ── Partículas ember ──────────────────────────────── */
+.ember {
+  position: fixed; pointer-events: none; z-index: 0;
+  border-radius: 50%; opacity: 0;
+  animation: emberFloat linear infinite;
+}
+@keyframes emberFloat {
+  0%   { transform: translateY(100vh) translateX(0) scale(0); opacity: 0; }
+  10%  { opacity: .7; }
+  50%  { transform: translateY(50vh) translateX(30px) scale(1); opacity: .5; }
+  90%  { opacity: .2; }
+  100% { transform: translateY(-10vh) translateX(-20px) scale(.3); opacity: 0; }
+}
+
+/* ── Nav ───────────────────────────────────────────── */
+#navbar {
+  position: fixed; top: 0; width: 100%; z-index: 500;
+  background: rgba(10,8,5,.7);
+  backdrop-filter: blur(24px);
+  border-bottom: 1px solid rgba(212,148,10,.12);
+  transition: padding .3s, box-shadow .3s;
+}
+#navbar.scrolled {
+  padding-top: .5rem; padding-bottom: .5rem;
+  box-shadow: 0 4px 40px rgba(0,0,0,.5);
+}
+.nav-link {
+  font-family: 'Cinzel', serif;
+  font-size: .7rem; letter-spacing: .15em; text-transform: uppercase;
+  color: #C8B898; transition: color .25s;
+  position: relative;
+}
+.nav-link::after {
+  content: ''; position: absolute; bottom: -2px; left: 0;
+  width: 0; height: 1px; background: #D4940A;
+  transition: width .3s ease;
+}
+.nav-link:hover { color: #FFBA38; }
+.nav-link:hover::after, .nav-link.active::after { width: 100%; }
+.nav-link.active { color: #D4940A; }
+
+/* ── Hero ──────────────────────────────────────────── */
+.hero-title {
+  font-family: 'Cinzel', serif;
+  text-shadow: 0 4px 30px rgba(0,0,0,.8);
+}
+.gold-gradient-text {
+  background: linear-gradient(135deg, #D4940A 0%, #FFBA38 50%, #D4940A 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.ember-gradient-text {
+  background: linear-gradient(135deg, #BE3A1A 0%, #E85A2A 50%, #BE3A1A 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Marquee ───────────────────────────────────────── */
+.marquee-wrap { overflow: hidden; }
+.marquee-track {
+  display: inline-flex; white-space: nowrap;
+  animation: marquee 25s linear infinite;
+}
+.marquee-wrap:hover .marquee-track { animation-play-state: paused; }
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── Menu cards ────────────────────────────────────── */
+.menu-card {
+  background: linear-gradient(145deg, #1C1408, #120D06);
+  border: 1px solid rgba(212,148,10,.12);
+  border-radius: 1.5rem;
+  overflow: hidden;
+  transition: transform .4s cubic-bezier(.2,1,.3,1), box-shadow .4s;
+  transform-style: preserve-3d;
+}
+.menu-card:hover {
+  transform: translateY(-12px) scale(1.02);
+  box-shadow: 0 30px 60px rgba(0,0,0,.6), 0 0 40px rgba(212,148,10,.15);
+  border-color: rgba(212,148,10,.4);
+}
+.menu-item-row {
+  border-bottom: 1px solid rgba(212,148,10,.08);
+  transition: background .25s, padding-left .25s;
+}
+.menu-item-row:hover {
+  background: rgba(212,148,10,.05);
+  padding-left: 0.75rem;
+}
+
+/* ── Reveal animaciones ────────────────────────────── */
+.reveal-up    { opacity: 0; transform: translateY(60px); }
+.reveal-left  { opacity: 0; transform: translateX(-60px); }
+.reveal-right { opacity: 0; transform: translateX(60px); }
+.reveal-scale { opacity: 0; transform: scale(.88); }
+
+/* ── Gallery ───────────────────────────────────────── */
+.gallery-item {
+  overflow: hidden;
+  position: relative;
+}
+.gallery-item::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.7) 0%, transparent 50%);
+  opacity: 0; transition: opacity .4s;
+}
+.gallery-item:hover::after { opacity: 1; }
+.gallery-item img {
+  transition: transform 1.2s cubic-bezier(.2,1,.3,1);
+}
+.gallery-item:hover img { transform: scale(1.12); }
+
+/* ── Glow button ───────────────────────────────────── */
+.btn-gold {
+  background: linear-gradient(135deg, #D4940A, #FFBA38);
+  color: #0A0805;
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  position: relative; overflow: hidden;
+  transition: transform .25s, box-shadow .25s;
+  box-shadow: 0 8px 30px rgba(212,148,10,.35);
+}
+.btn-gold:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 15px 40px rgba(212,148,10,.5);
+}
+.btn-gold::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,.25), transparent);
+  opacity: 0; transition: opacity .3s;
+}
+.btn-gold:hover::before { opacity: 1; }
+.btn-outline {
+  border: 1.5px solid rgba(212,148,10,.5);
+  color: #FFBA38;
+  font-family: 'Cinzel', serif;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  transition: all .3s;
+}
+.btn-outline:hover {
+  background: rgba(212,148,10,.12);
+  border-color: #D4940A;
+  transform: translateY(-3px);
+}
+
+/* ── Stat card ─────────────────────────────────────── */
+.stat-card {
+  background: linear-gradient(145deg, #1C1408, #120D06);
+  border: 1px solid rgba(212,148,10,.1);
+  border-radius: 1.25rem;
+  transition: transform .3s, box-shadow .3s;
+}
+.stat-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0,0,0,.5), 0 0 20px rgba(212,148,10,.1);
+}
+
+/* ── Promo badge ───────────────────────────────────── */
+.promo-badge {
+  background: linear-gradient(135deg, #BE3A1A, #E85A2A);
+  font-family: 'Cinzel', serif;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+
+/* ── Divisor llama ─────────────────────────────────── */
+.flame-divider { position: relative; text-align: center; overflow: hidden; }
+.flame-divider::before, .flame-divider::after {
+  content: '';
+  position: absolute; top: 50%; width: 40%;
+  height: 1px; background: linear-gradient(90deg, transparent, rgba(212,148,10,.4), transparent);
+}
+.flame-divider::before { left: 0; }
+.flame-divider::after  { right: 0; }
+
+/* ── WhatsApp float ────────────────────────────────── */
+#wa-float {
+  position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 490;
+  width: 62px; height: 62px; border-radius: 50%;
+  background: #25D366;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 30px rgba(37,211,102,.45);
+  animation: waPulse 3s ease-in-out infinite;
+  transition: transform .2s;
+}
+#wa-float:hover { transform: scale(1.12); }
+@keyframes waPulse {
+  0%,100% { box-shadow: 0 8px 30px rgba(37,211,102,.45); }
+  50%      { box-shadow: 0 8px 40px rgba(37,211,102,.7), 0 0 0 12px rgba(37,211,102,.12); }
+}
+
+/* ── Sección oscura / grain ───────────────────────── */
+.section-dark {
+  background: linear-gradient(160deg, #0A0805 0%, #120D06 100%);
+}
+.section-smoke {
+  background: linear-gradient(160deg, #120D06 0%, #1C1408 100%);
+}
+
+/* ── Grain overlay ─────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 9990; opacity: .025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px;
+}
+
+/* ── Scrollbar ─────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #0A0805; }
+::-webkit-scrollbar-thumb { background: #D4940A; }
+
+/* ── Keyframes generales ───────────────────────────── */
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
+}
+@keyframes glowPulse {
+  0%,100% { text-shadow: 0 0 20px rgba(212,148,10,.5); }
+  50%      { text-shadow: 0 0 40px rgba(212,148,10,.9), 0 0 80px rgba(212,148,10,.3); }
+}
+.animate-float  { animation: float 4s ease-in-out infinite; }
+.animate-glow   { animation: glowPulse 3s ease-in-out infinite; }
+
+@media (max-width:767px) {
+  .reveal-up, .reveal-left, .reveal-right, .reveal-scale { opacity:1; transform:none; }
+}
 </style>
 </head>
 
-<body class="bg-background text-on-background font-body selection:bg-primary selection:text-on-primary">
+<body>
 
-<!-- Top Navigation Bar -->
-<nav class="fixed top-0 w-full z-50 bg-neutral-900/70 backdrop-blur-xl shadow-2xl shadow-black/40 flex justify-between items-center px-8 py-4">
-  <div class="text-2xl font-bold tracking-tighter text-amber-500 uppercase font-headline">
-    El Señor de las Brasas
+<!-- ══ Barra de progreso ═══════════════════════════════ -->
+<div id="progress-bar"></div>
+
+<!-- ══ PRELOADER — Pollo en el asador ═════════════════ -->
+<div id="preloader">
+  <svg id="spit-anim" viewBox="0 0 200 160" fill="none" xmlns="http://www.w3.org/2000/svg" width="200" height="160">
+    <!-- Flames -->
+    <g class="flame-anim" style="transform-origin:100px 140px">
+      <ellipse cx="70" cy="138" rx="14" ry="18" fill="#BE3A1A" opacity=".9"/>
+      <ellipse cx="100" cy="132" rx="18" ry="24" fill="#D4940A" opacity=".95"/>
+      <ellipse cx="130" cy="138" rx="14" ry="18" fill="#BE3A1A" opacity=".9"/>
+      <ellipse cx="85" cy="130" rx="10" ry="14" fill="#FFBA38" opacity=".8"/>
+      <ellipse cx="115" cy="130" rx="10" ry="14" fill="#FFBA38" opacity=".8"/>
+      <ellipse cx="100" cy="126" rx="7" ry="10" fill="#FFF5C0" opacity=".6"/>
+    </g>
+    <!-- Spit rod -->
+    <rect x="20" y="70" width="160" height="5" rx="2.5" fill="#9E7A2A"/>
+    <!-- Left support -->
+    <rect x="20" y="70" width="5" height="40" rx="2" fill="#7A5C1A"/>
+    <!-- Right support -->
+    <rect x="175" y="70" width="5" height="40" rx="2" fill="#7A5C1A"/>
+    <!-- Chicken body rotating -->
+    <g id="chicken-body">
+      <!-- body -->
+      <ellipse cx="100" cy="72" rx="28" ry="22" fill="#D4940A"/>
+      <!-- crispy skin highlight -->
+      <ellipse cx="95" cy="68" rx="16" ry="12" fill="#FFBA38" opacity=".5"/>
+      <!-- drumstick left -->
+      <ellipse cx="72" cy="80" rx="9" ry="6" fill="#C0800A" transform="rotate(-25 72 80)"/>
+      <circle cx="67" cy="84" r="5" fill="#A06805"/>
+      <!-- drumstick right -->
+      <ellipse cx="128" cy="80" rx="9" ry="6" fill="#C0800A" transform="rotate(25 128 80)"/>
+      <circle cx="133" cy="84" r="5" fill="#A06805"/>
+      <!-- wing -->
+      <ellipse cx="88" cy="58" rx="10" ry="5" fill="#B87010" transform="rotate(-15 88 58)"/>
+      <!-- head -->
+      <circle cx="118" cy="62" r="10" fill="#D4940A"/>
+      <circle cx="123" cy="59" r="3" fill="#FFBA38"/>
+      <!-- beak -->
+      <path d="M127 62 L132 61 L127 64Z" fill="#E8B030"/>
+      <!-- eye -->
+      <circle cx="122" cy="59" r="1.5" fill="#0A0805"/>
+    </g>
+    <!-- Spit knob handles -->
+    <circle cx="18" cy="72" r="4" fill="#7A5C1A"/>
+    <circle cx="182" cy="72" r="4" fill="#7A5C1A"/>
+  </svg>
+
+  <p style="font-family:'Cinzel',serif;color:#D4940A;font-size:1rem;letter-spacing:.2em;text-transform:uppercase;">
+    Preparando su brasa…
+  </p>
+  <div>
+    <span class="loader-dot"></span>
+    <span class="loader-dot"></span>
+    <span class="loader-dot"></span>
   </div>
-  <div class="hidden md:flex gap-8 items-center font-headline tracking-tight">
-    <a class="text-amber-400 border-b-2 border-amber-400 pb-1 hover:scale-105 transition-transform duration-300" href="#">Inicio</a>
-    <a class="text-neutral-300 hover:text-amber-200 transition-colors hover:scale-105 transition-transform duration-300" href="#menu">Menú</a>
-    <a class="text-neutral-300 hover:text-amber-200 transition-colors hover:scale-105 transition-transform duration-300" href="#promos">Promos</a>
-    <a class="text-neutral-300 hover:text-amber-200 transition-colors hover:scale-105 transition-transform duration-300" href="#contacto">Contacto</a>
-  </div>
-  <div class="flex gap-4">
-    <a href="https://wa.me/51946779952?text=Hola!%20Quiero%20hacer%20un%20pedido%20🍗"
-       target="_blank" rel="noopener"
-       class="bg-primary-container text-on-primary-fixed font-bold py-2 px-6 rounded hover:scale-105 transition-transform duration-300 active:scale-95">
-      Pedir ahora
+</div>
+
+<!-- ══ CURSOR TENEDOR ══════════════════════════════════ -->
+<svg id="fork-cursor" width="20" height="52" viewBox="0 0 20 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <line x1="3"  y1="1" x2="3"  y2="18" stroke="#FFBA38" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="10" y1="1" x2="10" y2="18" stroke="#FFBA38" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="17" y1="1" x2="17" y2="18" stroke="#FFBA38" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M3 18 Q3 28 10 28 Q17 28 17 18" stroke="#FFBA38" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <line x1="10" y1="28" x2="10" y2="51" stroke="#FFBA38" stroke-width="2.5" stroke-linecap="round"/>
+</svg>
+
+<!-- ══ PARTÍCULAS EMBER ═══════════════════════════════ -->
+<div id="embers-container" aria-hidden="true"></div>
+
+<!-- ══ NAV ════════════════════════════════════════════ -->
+<nav id="navbar">
+  <div class="flex justify-between items-center px-6 md:px-10 py-5 max-w-7xl mx-auto">
+
+    <!-- Logo -->
+    <a href="#inicio" class="flex items-center gap-3 group">
+      <svg width="38" height="38" viewBox="0 0 38 38" fill="none">
+        <path d="M19 3 C22 10, 30 14, 28 22 C26 28, 22 32, 19 35 C16 32, 12 28, 10 22 C8 14, 16 10, 19 3Z"
+              fill="url(#logo-flame)" class="group-hover:drop-shadow-lg" style="transition:filter .3s;"/>
+        <path d="M19 14 C21 18, 24 20, 22 25 C21 28, 19 30, 19 33 C17 30, 15 28, 16 25 C14 20, 17 18, 19 14Z"
+              fill="#FFBA38" opacity=".9"/>
+        <defs>
+          <linearGradient id="logo-flame" x1="19" y1="3" x2="19" y2="35" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#FFBA38"/>
+            <stop offset="50%" stop-color="#D4940A"/>
+            <stop offset="100%" stop-color="#BE3A1A"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <div class="leading-tight">
+        <div class="font-display font-bold text-xs tracking-[.2em] uppercase text-gold" style="font-family:'Cinzel',serif;">
+          El Señor de
+        </div>
+        <div class="font-display font-black text-sm tracking-[.15em] uppercase gold-gradient-text" style="font-family:'Cinzel',serif;">
+          Las Brasas
+        </div>
+      </div>
     </a>
+
+    <!-- Links desktop -->
+    <div class="hidden md:flex gap-10 items-center">
+      <a href="#inicio"   class="nav-link active">Inicio</a>
+      <a href="#menu"     class="nav-link">Menú</a>
+      <a href="#promos"   class="nav-link">Promos</a>
+      <a href="#contacto" class="nav-link">Contacto</a>
+    </div>
+
+    <div class="flex items-center gap-3">
+      <a href="https://wa.me/51946779952?text=Hola!%20Quiero%20hacer%20un%20pedido%20%F0%9F%8D%97"
+         target="_blank" rel="noopener"
+         class="btn-gold px-6 py-2.5 rounded-full text-xs hidden md:flex items-center gap-2">
+        <span class="material-symbols-outlined text-sm">shopping_bag</span>
+        Pedir Ahora
+      </a>
+      <button id="mob-btn" class="md:hidden text-cream material-symbols-outlined text-2xl">menu</button>
+    </div>
+  </div>
+
+  <!-- Móvil menu -->
+  <div id="mob-menu" class="hidden flex-col px-6 pb-5 gap-4 border-t border-gold/10">
+    <a href="#menu"     onclick="closeMob()" class="nav-link py-3 border-b border-gold/10">Menú</a>
+    <a href="#promos"   onclick="closeMob()" class="nav-link py-3 border-b border-gold/10">Promos</a>
+    <a href="#contacto" onclick="closeMob()" class="nav-link py-3">Contacto</a>
+    <a href="https://wa.me/51946779952?text=Hola!%20Quiero%20hacer%20un%20pedido%20%F0%9F%8D%97"
+       target="_blank" class="btn-gold py-3 rounded-full text-xs text-center mt-2">Pedir Ahora</a>
   </div>
 </nav>
 
-<!-- Hero Section -->
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+<!-- ══ HERO ════════════════════════════════════════════ -->
+<section id="inicio" class="relative min-h-screen flex items-center justify-center overflow-hidden">
+
+  <!-- Background image — pollo a la brasa con papas -->
   <div class="absolute inset-0 z-0">
-    <img class="w-full h-full object-cover brightness-[0.3]"
-         src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=1400&q=90"
-         alt="Pollo a la leña El Señor de las Brasas"/>
-    <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+    <img src="https://images.unsplash.com/photo-1598103442097-8b74394b95c5?w=1600&q=90"
+         alt="Pollo a la brasa"
+         class="w-full h-full object-cover"
+         id="hero-bg"
+         style="filter: brightness(0.45) saturate(1.3);"/>
+    <!-- Gradients -->
+    <div class="absolute inset-0 bg-gradient-to-t from-[#0A0805] via-transparent to-[#0A0805]/30"></div>
+    <div class="absolute inset-0 bg-gradient-to-r from-[#0A0805]/60 via-transparent to-transparent"></div>
   </div>
-  <div class="relative z-10 text-center px-6 max-w-4xl">
-    <h1 class="font-headline text-5xl md:text-8xl font-black tracking-tighter text-on-background mb-4 uppercase">
-      El Señor de <span class="text-primary-container">las Brasas</span>
-    </h1>
-    <p class="font-body text-xl md:text-2xl text-on-surface-variant mb-10 font-light tracking-wide italic">
-      "El auténtico sabor del pollo a la leña"
-    </p>
-    <div class="flex flex-col md:flex-row gap-4 justify-center">
-      <a class="bg-gradient-to-br from-primary to-primary-container text-on-primary-fixed px-10 py-4 rounded-lg font-bold text-lg hover:scale-105 transition-all shadow-xl shadow-primary-container/20" href="#menu">
-        Ver Menú
-      </a>
-      <a class="bg-surface-container-high border border-outline-variant/30 text-primary px-10 py-4 rounded-lg font-bold text-lg hover:bg-surface-container-highest transition-all flex items-center justify-center gap-2"
-         href="https://wa.me/51946779952?text=Hola!%20Quiero%20hacer%20un%20pedido%20🍗" target="_blank" rel="noopener">
-        <span class="material-symbols-outlined">chat</span>
-        Pedir por WhatsApp
-      </a>
+
+  <!-- Decoración fondo -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute top-1/4 right-10 w-80 h-80 bg-gold/8 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-1/3 left-0 w-64 h-64 bg-ember/10 rounded-full blur-3xl"></div>
+  </div>
+
+  <div class="relative z-10 max-w-6xl mx-auto px-6 text-center md:text-left">
+    <div class="max-w-3xl">
+
+      <!-- Badge -->
+      <div id="hero-badge"
+           class="inline-flex items-center gap-2 border border-gold/30 bg-gold/10 backdrop-blur-sm
+                  px-5 py-2 rounded-full mb-8"
+           style="font-family:'Cinzel',serif;font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:#FFBA38;">
+        <span class="material-symbols-outlined text-sm">local_fire_department</span>
+        Arequipa · Pollo a la Leña desde 1998
+      </div>
+
+      <!-- Título principal -->
+      <h1 id="hero-h1" class="hero-title mb-6 leading-none">
+        <span class="block text-5xl md:text-7xl lg:text-8xl font-black text-cream"
+              style="font-family:'Cinzel',serif;">EL SEÑOR</span>
+        <span class="block text-6xl md:text-8xl lg:text-9xl font-black gold-gradient-text animate-glow"
+              style="font-family:'Cinzel',serif;">DE LAS</span>
+        <span class="block text-4xl md:text-6xl lg:text-7xl font-black ember-gradient-text"
+              style="font-family:'Cinzel',serif; letter-spacing:.1em;">BRASAS</span>
+      </h1>
+
+      <!-- Tagline -->
+      <p id="hero-sub"
+         style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-style:italic;color:#C8B898;"
+         class="mb-10 max-w-xl">
+        "El auténtico sabor del pollo a la leña — marinado 24 horas, asado a la perfección"
+      </p>
+
+      <!-- Botones -->
+      <div id="hero-btns" class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+        <a href="#menu"
+           class="btn-gold px-10 py-4 rounded-full text-sm flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined text-base">restaurant_menu</span>
+          Ver el Menú
+        </a>
+        <a href="https://wa.me/51946779952?text=Hola!%20Quiero%20hacer%20un%20pedido%20%F0%9F%8D%97"
+           target="_blank" rel="noopener"
+           class="btn-outline px-10 py-4 rounded-full text-sm flex items-center justify-center gap-2">
+          <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Pedir por WhatsApp
+        </a>
+      </div>
+
+      <!-- Stats -->
+      <div id="hero-stats" class="flex gap-8 mt-14 justify-center md:justify-start">
+        <div class="text-center">
+          <div class="text-3xl font-black gold-gradient-text" data-count="25" style="font-family:'Cinzel',serif;">0</div>
+          <div class="text-xs text-cream-soft tracking-widest uppercase mt-1" style="font-family:'Raleway',sans-serif;">Años</div>
+        </div>
+        <div class="w-px bg-gold/20"></div>
+        <div class="text-center">
+          <div class="text-3xl font-black gold-gradient-text" data-count="100" style="font-family:'Cinzel',serif;">0</div>
+          <div class="text-xs text-cream-soft tracking-widest uppercase mt-1" style="font-family:'Raleway',sans-serif;">% Leña</div>
+        </div>
+        <div class="w-px bg-gold/20"></div>
+        <div class="text-center">
+          <div class="text-3xl font-black gold-gradient-text" data-count="24" style="font-family:'Cinzel',serif;">0</div>
+          <div class="text-xs text-cream-soft tracking-widest uppercase mt-1" style="font-family:'Raleway',sans-serif;">h Marinado</div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
-    <span class="material-symbols-outlined text-primary text-4xl">expand_more</span>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-60">
+    <span class="material-symbols-outlined text-gold text-4xl">keyboard_arrow_down</span>
   </div>
 </section>
 
-<!-- Sobre Nosotros -->
-<section class="py-24 px-6 md:px-20 bg-surface-container-lowest">
-  <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
-    <div class="relative group">
-      <div class="absolute -inset-4 bg-primary/20 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
-      <img class="relative rounded-xl shadow-2xl grayscale hover:grayscale-0 transition-all duration-700 w-full aspect-square object-cover"
-           src="https://images.unsplash.com/photo-1598103442097-8b74394b95c5?w=800&q=80"
-           alt="Pollo a la brasa artesanal"/>
+<!-- ══ MARQUEE ════════════════════════════════════════ -->
+<div class="py-4 overflow-hidden" style="background:linear-gradient(90deg,#BE3A1A,#D4940A,#BE3A1A);">
+  <div class="marquee-wrap">
+    <div class="marquee-track" id="marquee-track">
+      <!-- JS duplicará el contenido -->
     </div>
-    <div>
-      <h2 class="font-headline text-4xl md:text-5xl font-extrabold text-on-background mb-8 tracking-tight">
-        Nuestra <span class="text-primary">Tradición</span>
+  </div>
+</div>
+
+<!-- ══ NOSOTROS ═══════════════════════════════════════ -->
+<section class="section-dark py-24 md:py-32 px-6 md:px-10">
+  <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
+
+    <div class="relative group reveal-left">
+      <div class="absolute -inset-6 bg-gold/10 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+      <div class="relative overflow-hidden rounded-2xl">
+        <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=85"
+             alt="Interior El Señor de las Brasas"
+             class="w-full aspect-square object-cover grayscale hover:grayscale-0 transition-all duration-1000 hover:scale-105"/>
+        <!-- Corner accent -->
+        <div class="absolute top-4 left-4 border-t-2 border-l-2 border-gold w-12 h-12 pointer-events-none opacity-60"></div>
+        <div class="absolute bottom-4 right-4 border-b-2 border-r-2 border-gold w-12 h-12 pointer-events-none opacity-60"></div>
+      </div>
+    </div>
+
+    <div class="reveal-right">
+      <div class="flame-divider mb-6">
+        <span class="px-4 text-xs tracking-[.3em] uppercase" style="font-family:'Cinzel',serif;color:#D4940A;">
+          Nuestra Historia
+        </span>
+      </div>
+      <h2 class="mb-8 leading-tight" style="font-family:'Cinzel',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:800;color:#F5ECD8;">
+        Nuestra <span class="gold-gradient-text">Tradición</span>
       </h2>
-      <div class="space-y-6 text-on-surface-variant font-light text-lg leading-relaxed">
-        <p>En <span class="text-primary-fixed-dim font-bold">El Señor de las Brasas</span>, no solo cocinamos pollo; honramos una herencia gastronómica que se siente en cada fibra de nuestra carne jugosa y piel crocante.</p>
-        <p>Utilizamos exclusivamente leña seleccionada, garantizando ese aroma ahumado que solo el carbón auténtico puede otorgar. Cada ave es marinada por 24 horas con nuestra receta secreta de hierbas andinas y especias tradicionales.</p>
+      <div class="space-y-5 leading-relaxed" style="color:#C8B898;font-family:'Cormorant Garamond',serif;font-size:1.1rem;">
+        <p>En <strong style="color:#FFBA38;">El Señor de las Brasas</strong>, no solo cocinamos pollo; honramos una herencia gastronómica que se siente en cada fibra de nuestra carne jugosa y piel crocante.</p>
+        <p>Utilizamos exclusivamente leña seleccionada, garantizando ese aroma ahumado que solo el carbón auténtico puede otorgar. Cada ave es marinada por <strong style="color:#FFBA38;">24 horas</strong> con nuestra receta secreta de hierbas andinas.</p>
       </div>
       <div class="mt-12 grid grid-cols-3 gap-4">
-        <div class="text-center p-4 bg-surface-container-low rounded-lg">
-          <span class="material-symbols-outlined text-primary text-3xl mb-2">local_fire_department</span>
-          <p class="text-xs font-bold uppercase tracking-widest text-on-surface">100% Leña</p>
+        <div class="stat-card p-5 text-center">
+          <span class="material-symbols-outlined text-gold text-3xl mb-2">local_fire_department</span>
+          <p class="text-xs font-bold tracking-widest uppercase" style="font-family:'Cinzel',serif;color:#FFBA38;">100% Leña</p>
         </div>
-        <div class="text-center p-4 bg-surface-container-low rounded-lg">
-          <span class="material-symbols-outlined text-primary text-3xl mb-2">timer</span>
-          <p class="text-xs font-bold uppercase tracking-widest text-on-surface">24h Marinado</p>
+        <div class="stat-card p-5 text-center">
+          <span class="material-symbols-outlined text-gold text-3xl mb-2">timer</span>
+          <p class="text-xs font-bold tracking-widest uppercase" style="font-family:'Cinzel',serif;color:#FFBA38;">24h Marinado</p>
         </div>
-        <div class="text-center p-4 bg-surface-container-low rounded-lg">
-          <span class="material-symbols-outlined text-primary text-3xl mb-2">restaurant</span>
-          <p class="text-xs font-bold uppercase tracking-widest text-on-surface">Calidad Premium</p>
+        <div class="stat-card p-5 text-center">
+          <span class="material-symbols-outlined text-gold text-3xl mb-2">star</span>
+          <p class="text-xs font-bold tracking-widest uppercase" style="font-family:'Cinzel',serif;color:#FFBA38;">Premium</p>
         </div>
       </div>
     </div>
+
   </div>
 </section>
 
-<!-- Digital Menu -->
-<section class="py-24 px-6 md:px-20 bg-background" id="menu">
+<!-- ══ MENÚ DIGITAL ═══════════════════════════════════ -->
+<section id="menu" class="section-smoke py-24 md:py-32 px-6 md:px-10">
   <div class="max-w-7xl mx-auto">
-    <header class="text-center mb-16">
-      <h2 class="font-headline text-4xl md:text-6xl font-black mb-4 uppercase tracking-tighter">Menú <span class="text-primary-container">Digital</span></h2>
-      <p class="text-on-surface-variant font-medium">Sabor que trasciende, tradición en cada bocado.</p>
-    </header>
+
+    <div class="text-center mb-16 reveal-up">
+      <div class="flame-divider mb-5">
+        <span class="px-4 text-xs tracking-[.3em] uppercase" style="font-family:'Cinzel',serif;color:#D4940A;">
+          Lo Mejor de la Brasa
+        </span>
+      </div>
+      <h2 style="font-family:'Cinzel',serif;font-size:clamp(2.5rem,7vw,5rem);font-weight:900;letter-spacing:-.01em;color:#F5ECD8;"
+          class="uppercase mb-4">
+        Menú <span class="gold-gradient-text">Digital</span>
+      </h2>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:1.25rem;font-style:italic;color:#C8B898;">
+        Sabor que trasciende, tradición en cada bocado.
+      </p>
+    </div>
+
     <div class="grid md:grid-cols-3 gap-8">
 
-      <!-- Pollos -->
-      <div class="bg-surface-container-low p-8 rounded-xl flex flex-col">
-        <div class="flex items-center gap-3 mb-8">
-          <span class="material-symbols-outlined text-primary-container text-4xl">restaurant</span>
-          <h3 class="font-headline text-2xl font-bold uppercase">Pollos</h3>
-        </div>
-        <div class="space-y-8">
-          <div>
-            <div class="flex justify-between items-end mb-2">
-              <span class="text-xl font-bold text-on-background">1 Pollo Entero</span>
-              <span class="text-primary-container font-headline font-black text-xl">S/. 62</span>
-            </div>
-            <p class="text-sm text-on-surface-variant font-light italic">Incluye Papas fritas + Ensalada + Cremas</p>
-          </div>
-          <div>
-            <div class="flex justify-between items-end mb-2">
-              <span class="text-xl font-bold text-on-background">1/2 Pollo</span>
-              <span class="text-primary-container font-headline font-black text-xl">S/. 32</span>
-            </div>
-            <p class="text-sm text-on-surface-variant font-light italic">Incluye Papas fritas + Ensalada + Cremas</p>
-          </div>
-          <div>
-            <div class="flex justify-between items-end mb-2">
-              <span class="text-xl font-bold text-on-background">1/4 Pollo</span>
-              <span class="text-primary-container font-headline font-black text-xl">S/. 18</span>
-            </div>
-            <p class="text-sm text-on-surface-variant font-light italic">Incluye Papas fritas + Ensalada + Cremas</p>
+      <!-- ── Pollos ── -->
+      <div class="menu-card reveal-scale" style="transition-delay:.0s">
+        <div class="relative h-52 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=85"
+               alt="Pollos a la brasa"
+               class="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
+               style="filter:brightness(.75) saturate(1.4);"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-[#120D06] to-transparent"></div>
+          <div class="absolute bottom-4 left-5 flex items-center gap-3">
+            <span class="material-symbols-outlined text-gold-light text-3xl">restaurant</span>
+            <h3 style="font-family:'Cinzel',serif;font-weight:800;font-size:1.4rem;color:#FFBA38;text-transform:uppercase;letter-spacing:.1em;">
+              Pollos
+            </h3>
           </div>
         </div>
-        <div class="mt-auto pt-10">
-          <img class="w-full h-32 object-cover rounded-lg brightness-75 hover:brightness-100 transition-all"
-               src="https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=600&q=80"
-               alt="Pollo a la brasa con papas"/>
-        </div>
-      </div>
-
-      <!-- Otros -->
-      <div class="bg-surface-container-high p-8 rounded-xl border border-primary/10 flex flex-col">
-        <div class="flex items-center gap-3 mb-8">
-          <span class="material-symbols-outlined text-primary-container text-4xl">skillet</span>
-          <h3 class="font-headline text-2xl font-bold uppercase">Otros</h3>
-        </div>
-        <div class="space-y-8">
-          <div class="flex justify-between items-center">
+        <div class="p-7 space-y-5">
+          <div class="menu-item-row pb-4 flex justify-between items-end">
             <div>
-              <h4 class="font-bold">Salchibrasa</h4>
-              <p class="text-xs text-on-surface-variant uppercase tracking-widest">Favorito de la casa</p>
+              <div class="font-semibold text-cream text-lg" style="font-family:'Cormorant Garamond',serif;">1 Pollo Entero</div>
+              <div class="text-xs text-cream-soft mt-1">Papas fritas · Ensalada · Cremas</div>
             </div>
-            <span class="text-primary font-headline font-black text-lg">S/. 15</span>
+            <span class="gold-gradient-text font-black text-xl" style="font-family:'Cinzel',serif;">S/. 62</span>
           </div>
-          <div class="flex justify-between items-center">
+          <div class="menu-item-row pb-4 flex justify-between items-end">
             <div>
-              <h4 class="font-bold">Porción de papas</h4>
-              <p class="text-xs text-on-surface-variant uppercase tracking-widest">Naturales &amp; Crocantes</p>
+              <div class="font-semibold text-cream text-lg" style="font-family:'Cormorant Garamond',serif;">1/2 Pollo</div>
+              <div class="text-xs text-cream-soft mt-1">Papas fritas · Ensalada · Cremas</div>
             </div>
-            <span class="text-primary font-headline font-black text-lg">S/. 12</span>
+            <span class="gold-gradient-text font-black text-xl" style="font-family:'Cinzel',serif;">S/. 32</span>
           </div>
-          <div class="flex justify-between items-center">
+          <div class="flex justify-between items-end pt-1">
             <div>
-              <h4 class="font-bold">Ensalada Familiar</h4>
-              <p class="text-xs text-on-surface-variant uppercase tracking-widest">Frescura Total</p>
+              <div class="font-semibold text-cream text-lg" style="font-family:'Cormorant Garamond',serif;">1/4 Pollo</div>
+              <div class="text-xs text-cream-soft mt-1">Papas fritas · Ensalada · Cremas</div>
             </div>
-            <span class="text-primary font-headline font-black text-lg">S/. 10</span>
+            <span class="gold-gradient-text font-black text-xl" style="font-family:'Cinzel',serif;">S/. 18</span>
           </div>
         </div>
-      </div>
-
-      <!-- Bebidas -->
-      <div class="bg-surface-container-low p-8 rounded-xl flex flex-col">
-        <div class="flex items-center gap-3 mb-8">
-          <span class="material-symbols-outlined text-primary-container text-4xl">local_bar</span>
-          <h3 class="font-headline text-2xl font-bold uppercase">Bebidas</h3>
-        </div>
-        <div class="space-y-6">
-          <div class="flex justify-between border-b border-outline-variant/10 pb-3">
-            <span class="font-medium">Chicha Morada (Jarra)</span>
-            <span class="text-primary-container font-black">S/. 12</span>
-          </div>
-          <div class="flex justify-between border-b border-outline-variant/10 pb-3">
-            <span class="font-medium">Maracuyá (Jarra)</span>
-            <span class="text-primary-container font-black">S/. 12</span>
-          </div>
-          <div class="flex justify-between border-b border-outline-variant/10 pb-3">
-            <span class="font-medium">Gaseosas Personales</span>
-            <span class="text-primary-container font-black">S/. 4</span>
-          </div>
-          <div class="flex justify-between border-b border-outline-variant/10 pb-3">
-            <span class="font-medium">Inca Kola 1.5L</span>
-            <span class="text-primary-container font-black">S/. 10</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- Promociones -->
-<section class="py-24 bg-surface-container-lowest" id="promos">
-  <div class="max-w-7xl mx-auto px-6">
-    <div class="relative overflow-hidden rounded-3xl bg-secondary-container/10 border-2 border-secondary/20 p-8 md:p-16 flex flex-col md:flex-row items-center gap-12">
-      <div class="absolute -top-24 -right-24 w-96 h-96 bg-secondary/10 blur-[120px] rounded-full"></div>
-      <div class="flex-1 text-center md:text-left z-10">
-        <span class="inline-block px-4 py-1 bg-secondary text-on-secondary rounded-full text-xs font-black uppercase tracking-widest mb-6">Promoción Imperdible</span>
-        <h2 class="font-headline text-5xl md:text-7xl font-black text-on-background mb-4 leading-none">LA GRAN PROMO</h2>
-        <p class="text-2xl font-light text-secondary mb-8">Pollo Entero + Papas + Ensalada + Cremas</p>
-        <div class="flex items-center justify-center md:justify-start gap-4 mb-8">
-          <span class="text-on-surface-variant line-through text-3xl">S/. 62</span>
-          <span class="text-primary-container font-headline text-6xl font-black drop-shadow-lg">S/. 58</span>
-        </div>
-        <div class="flex items-center gap-2 text-on-surface-variant font-bold uppercase tracking-tighter">
-          <span class="material-symbols-outlined text-secondary">event</span>
-          Válido Martes, Miércoles y Jueves
-        </div>
-      </div>
-      <div class="flex-1 z-10 w-full max-w-md">
-        <div class="relative">
-          <img class="rounded-2xl shadow-2xl rotate-3 hover:rotate-0 transition-transform duration-500 w-full object-cover aspect-video"
-               src="https://images.unsplash.com/photo-1594041680534-e8c8cdebd659?w=600&q=80"
-               alt="Pollo a la brasa dorado"/>
-          <div class="absolute -bottom-4 -left-4 bg-background p-4 rounded-xl shadow-xl border border-outline-variant/20">
-            <p class="text-xs font-black text-primary uppercase">¡Pídelo ya!</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Galería -->
-<section class="py-24 bg-background">
-  <div class="max-w-full px-4 overflow-hidden">
-    <h2 class="font-headline text-center text-3xl font-bold mb-16 tracking-widest uppercase opacity-40">#ElSeñorDeLasBrasas</h2>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div class="overflow-hidden aspect-square">
-        <img class="w-full h-full object-cover hover:scale-110 transition-transform duration-1000"
-             src="https://images.unsplash.com/photo-1604908177522-bc36545c4a24?w=500&q=80"
-             alt="Pollo con papas y salsas"/>
-      </div>
-      <div class="overflow-hidden aspect-square md:mt-12">
-        <img class="w-full h-full object-cover hover:scale-110 transition-transform duration-1000"
-             src="https://images.unsplash.com/photo-1598514982901-4baa7d4a8fb0?w=500&q=80"
-             alt="Piel crocante pollo a la brasa"/>
-      </div>
-      <div class="overflow-hidden aspect-square">
-        <img class="w-full h-full object-cover hover:scale-110 transition-transform duration-1000"
-             src="https://images.unsplash.com/photo-1544025162-d76538375d63?w=500&q=80"
-             alt="Brasas y leña encendida"/>
-      </div>
-      <div class="overflow-hidden aspect-square md:mt-12">
-        <img class="w-full h-full object-cover hover:scale-110 transition-transform duration-1000"
-             src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=500&q=80"
-             alt="Mesa con pollo y acompañamientos"/>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Ubicación y Contacto -->
-<section class="py-24 px-6 md:px-20 bg-surface-container-lowest" id="contacto">
-  <div class="max-w-7xl mx-auto">
-    <div class="grid md:grid-cols-2 gap-16">
-      <div>
-        <h2 class="font-headline text-4xl font-black mb-10 text-on-background">
-          Visítanos y <span class="text-primary">Enamórate</span>
-        </h2>
-        <div class="space-y-8">
-          <div class="flex gap-6">
-            <div class="bg-surface-container p-4 rounded-lg h-fit">
-              <span class="material-symbols-outlined text-primary text-3xl">location_on</span>
-            </div>
-            <div>
-              <h4 class="font-bold text-xl mb-1">Dirección</h4>
-              <p class="text-on-surface-variant font-light">Av. Metropolitana - Yanahuara, Arequipa, Perú</p>
-            </div>
-          </div>
-          <div class="flex gap-6">
-            <div class="bg-surface-container p-4 rounded-lg h-fit">
-              <span class="material-symbols-outlined text-primary text-3xl">call</span>
-            </div>
-            <div>
-              <h4 class="font-bold text-xl mb-1">Teléfono</h4>
-              <p class="text-on-surface-variant font-light">946 779 952</p>
-            </div>
-          </div>
-          <div class="flex gap-6">
-            <div class="bg-surface-container p-4 rounded-lg h-fit">
-              <span class="material-symbols-outlined text-primary text-3xl">schedule</span>
-            </div>
-            <div>
-              <h4 class="font-bold text-xl mb-1">Horario de Atención</h4>
-              <p class="text-on-surface-variant font-light">Lunes a Domingo: 11:30 AM - 10:00 PM</p>
-            </div>
-          </div>
-          <a href="https://wa.me/51946779952?text=Hola!%20Quiero%20hacer%20un%20pedido%20🍗"
+        <div class="px-7 pb-6">
+          <a href="https://wa.me/51946779952?text=Hola!%20Quiero%20pedir%20un%20pollo%20%F0%9F%8D%97"
              target="_blank" rel="noopener"
-             class="inline-flex items-center gap-3 bg-[#25D366] text-white px-8 py-4 rounded-full font-bold hover:bg-[#1ea855] transition-colors shadow-lg">
-            <svg class="w-5 h-5 fill-white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-            Escribir por WhatsApp
+             class="btn-gold w-full py-3 rounded-full text-xs flex items-center justify-center gap-2">
+            <span class="material-symbols-outlined text-sm">shopping_bag</span> Pedir
           </a>
         </div>
       </div>
 
-      <!-- Mapa Google Maps real -->
-      <div class="rounded-3xl overflow-hidden shadow-2xl border border-outline-variant/10 min-h-[400px]">
+      <!-- ── Otros ── -->
+      <div class="menu-card reveal-scale" style="transition-delay:.1s; margin-top: 2rem;">
+        <div class="relative h-52 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=85"
+               alt="Platos adicionales"
+               class="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
+               style="filter:brightness(.7) saturate(1.3);"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-[#120D06] to-transparent"></div>
+          <div class="absolute bottom-4 left-5 flex items-center gap-3">
+            <span class="material-symbols-outlined text-gold-light text-3xl">skillet</span>
+            <h3 style="font-family:'Cinzel',serif;font-weight:800;font-size:1.4rem;color:#FFBA38;text-transform:uppercase;letter-spacing:.1em;">
+              Extras
+            </h3>
+          </div>
+        </div>
+        <div class="p-7 space-y-5">
+          <div class="menu-item-row pb-4 flex justify-between items-center">
+            <div>
+              <div class="font-semibold text-cream" style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;">Salchibrasa</div>
+              <div class="text-xs text-gold/80 mt-0.5" style="font-family:'Cinzel',serif;letter-spacing:.1em;">FAVORITO</div>
+            </div>
+            <span class="gold-gradient-text font-black" style="font-family:'Cinzel',serif;font-size:1.1rem;">S/. 15</span>
+          </div>
+          <div class="menu-item-row pb-4 flex justify-between items-center">
+            <div>
+              <div class="font-semibold text-cream" style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;">Porción de Papas</div>
+              <div class="text-xs text-cream-soft mt-0.5">Naturales &amp; Crocantes</div>
+            </div>
+            <span class="gold-gradient-text font-black" style="font-family:'Cinzel',serif;font-size:1.1rem;">S/. 12</span>
+          </div>
+          <div class="flex justify-between items-center pt-1">
+            <div>
+              <div class="font-semibold text-cream" style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;">Ensalada Familiar</div>
+              <div class="text-xs text-cream-soft mt-0.5">Frescura Total</div>
+            </div>
+            <span class="gold-gradient-text font-black" style="font-family:'Cinzel',serif;font-size:1.1rem;">S/. 10</span>
+          </div>
+        </div>
+        <div class="px-7 pb-6">
+          <a href="https://wa.me/51946779952?text=Hola!%20Quiero%20pedir%20%F0%9F%8D%97"
+             target="_blank" rel="noopener"
+             class="btn-gold w-full py-3 rounded-full text-xs flex items-center justify-center gap-2">
+            <span class="material-symbols-outlined text-sm">shopping_bag</span> Pedir
+          </a>
+        </div>
+      </div>
+
+      <!-- ── Bebidas ── -->
+      <div class="menu-card reveal-scale" style="transition-delay:.2s">
+        <div class="relative h-52 overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?w=600&q=85"
+               alt="Bebidas"
+               class="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
+               style="filter:brightness(.65) saturate(1.4);"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-[#120D06] to-transparent"></div>
+          <div class="absolute bottom-4 left-5 flex items-center gap-3">
+            <span class="material-symbols-outlined text-gold-light text-3xl">local_bar</span>
+            <h3 style="font-family:'Cinzel',serif;font-weight:800;font-size:1.4rem;color:#FFBA38;text-transform:uppercase;letter-spacing:.1em;">
+              Bebidas
+            </h3>
+          </div>
+        </div>
+        <div class="p-7 space-y-4">
+          <div class="menu-item-row pb-3 flex justify-between">
+            <span class="text-cream" style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;">Chicha Morada (Jarra)</span>
+            <span class="gold-gradient-text font-black" style="font-family:'Cinzel',serif;">S/. 12</span>
+          </div>
+          <div class="menu-item-row pb-3 flex justify-between">
+            <span class="text-cream" style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;">Maracuyá (Jarra)</span>
+            <span class="gold-gradient-text font-black" style="font-family:'Cinzel',serif;">S/. 12</span>
+          </div>
+          <div class="menu-item-row pb-3 flex justify-between">
+            <span class="text-cream" style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;">Gaseosas Personal</span>
+            <span class="gold-gradient-text font-black" style="font-family:'Cinzel',serif;">S/. 4</span>
+          </div>
+          <div class="flex justify-between pt-1">
+            <span class="text-cream" style="font-family:'Cormorant Garamond',serif;font-size:1.05rem;">Inca Kola 1.5L</span>
+            <span class="gold-gradient-text font-black" style="font-family:'Cinzel',serif;">S/. 10</span>
+          </div>
+        </div>
+        <div class="px-7 pb-6">
+          <a href="https://wa.me/51946779952?text=Hola!%20Quiero%20pedir%20%F0%9F%8D%97"
+             target="_blank" rel="noopener"
+             class="btn-gold w-full py-3 rounded-full text-xs flex items-center justify-center gap-2">
+            <span class="material-symbols-outlined text-sm">shopping_bag</span> Pedir
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROMOCIÓN ══════════════════════════════════════ -->
+<section id="promos" class="section-dark py-24 px-6 md:px-10">
+  <div class="max-w-7xl mx-auto">
+    <div class="relative overflow-hidden rounded-3xl p-10 md:p-16
+                flex flex-col md:flex-row items-center gap-12 reveal-up"
+         style="background: linear-gradient(135deg, #1C1408 0%, #2A1A08 50%, #1C1408 100%);
+                border: 1px solid rgba(212,148,10,.25);
+                box-shadow: 0 0 80px rgba(190,58,26,.15), inset 0 0 80px rgba(0,0,0,.3);">
+
+      <!-- Glow decorativo -->
+      <div class="absolute -top-20 -right-20 w-80 h-80 bg-ember/15 blur-[100px] rounded-full pointer-events-none"></div>
+      <div class="absolute -bottom-20 -left-20 w-80 h-80 bg-gold/10 blur-[100px] rounded-full pointer-events-none"></div>
+
+      <div class="flex-1 z-10 text-center md:text-left">
+        <span class="promo-badge inline-block px-5 py-2 rounded-full text-white text-xs mb-6">
+          🔥 Promoción Imperdible
+        </span>
+        <h2 style="font-family:'Cinzel',serif;font-size:clamp(3rem,8vw,5rem);font-weight:900;color:#F5ECD8;line-height:1;"
+            class="mb-4 uppercase">
+          LA GRAN<br/><span class="gold-gradient-text">PROMO</span>
+        </h2>
+        <p style="font-family:'Cormorant Garamond',serif;font-size:1.3rem;color:#C8B898;"
+           class="mb-8">
+          Pollo Entero + Papas + Ensalada + Cremas
+        </p>
+        <div class="flex items-center gap-5 mb-8 justify-center md:justify-start">
+          <span style="color:#6B5030;text-decoration:line-through;font-size:2rem;font-family:'Cinzel',serif;">S/. 62</span>
+          <span class="gold-gradient-text animate-glow"
+                style="font-family:'Cinzel',serif;font-size:clamp(3rem,7vw,4.5rem);font-weight:900;">
+            S/. 58
+          </span>
+        </div>
+        <div class="flex items-center gap-2 mb-8 justify-center md:justify-start"
+             style="color:#C8B898;font-family:'Cinzel',serif;font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;">
+          <span class="material-symbols-outlined text-gold text-sm">event</span>
+          Válido Martes, Miércoles y Jueves
+        </div>
+        <a href="https://wa.me/51946779952?text=Hola!%20Quiero%20la%20Gran%20Promo%20de%20S/.58%20%F0%9F%8D%97"
+           target="_blank" rel="noopener"
+           class="btn-gold px-10 py-4 rounded-full text-sm inline-flex items-center gap-2">
+          <span class="material-symbols-outlined text-base">shopping_bag</span>
+          Quiero esta Promo
+        </a>
+      </div>
+
+      <div class="flex-1 z-10 w-full max-w-md">
+        <div class="relative">
+          <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=700&q=85"
+               alt="Pollo a la brasa dorado"
+               class="rounded-2xl shadow-2xl w-full object-cover aspect-video hover:scale-[1.03] transition-transform duration-700"
+               style="filter:brightness(.85) saturate(1.4);"/>
+          <div class="absolute -top-3 -right-3 bg-ember text-white rounded-full w-16 h-16
+                      flex items-center justify-center shadow-xl animate-float"
+               style="font-family:'Cinzel',serif;font-size:.55rem;font-weight:800;letter-spacing:.05em;text-align:center;text-transform:uppercase;line-height:1.3;">
+            AHORRA<br/>S/. 4
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ GALERÍA ════════════════════════════════════════ -->
+<section class="section-smoke py-24 px-4">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="text-center mb-16 tracking-[.3em] uppercase reveal-up"
+        style="font-family:'Cinzel',serif;font-size:1.1rem;color:#D4940A;opacity:.7;">
+      #ElSeñorDeLasBrasas
+    </h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <div class="gallery-item aspect-square rounded-xl reveal-scale" style="transition-delay:.0s">
+        <img src="https://images.unsplash.com/photo-1532636875304-0c89119d9b4d?w=500&q=85"
+             alt="Pollo a la brasa" class="w-full h-full object-cover"
+             style="filter:saturate(1.3) brightness(.9);"/>
+      </div>
+      <div class="gallery-item aspect-square rounded-xl reveal-scale md:mt-8" style="transition-delay:.08s">
+        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=85"
+             alt="Brasas encendidas" class="w-full h-full object-cover"
+             style="filter:saturate(1.5) brightness(.8);"/>
+      </div>
+      <div class="gallery-item aspect-square rounded-xl reveal-scale" style="transition-delay:.16s">
+        <img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=500&q=85"
+             alt="Mesa con pollo" class="w-full h-full object-cover"
+             style="filter:saturate(1.2) brightness(.85);"/>
+      </div>
+      <div class="gallery-item aspect-square rounded-xl reveal-scale md:mt-8" style="transition-delay:.24s">
+        <img src="https://images.unsplash.com/photo-1519984388953-d2406bc725e1?w=500&q=85"
+             alt="Detalle pollo crocante" class="w-full h-full object-cover"
+             style="filter:saturate(1.4) brightness(.8);"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACTO ═══════════════════════════════════════ -->
+<section id="contacto" class="section-dark py-24 px-6 md:px-10">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-16 reveal-up">
+      <div class="flame-divider mb-5">
+        <span class="px-4 text-xs tracking-[.3em] uppercase" style="font-family:'Cinzel',serif;color:#D4940A;">
+          Encuéntranos
+        </span>
+      </div>
+      <h2 style="font-family:'Cinzel',serif;font-size:clamp(2rem,5vw,3.5rem);font-weight:800;color:#F5ECD8;">
+        Visítanos y <span class="gold-gradient-text">Enamórate</span>
+      </h2>
+    </div>
+    <div class="grid md:grid-cols-2 gap-12 items-start">
+
+      <!-- Info -->
+      <div class="space-y-6">
+        <div class="stat-card p-6 reveal-left flex gap-5 items-start">
+          <div class="w-12 h-12 rounded-xl bg-gold/15 flex items-center justify-center shrink-0">
+            <span class="material-symbols-outlined text-gold text-2xl">location_on</span>
+          </div>
+          <div>
+            <h4 class="font-bold mb-1" style="font-family:'Cinzel',serif;color:#FFBA38;font-size:.85rem;letter-spacing:.15em;text-transform:uppercase;">Dirección</h4>
+            <p style="color:#C8B898;font-family:'Cormorant Garamond',serif;font-size:1.1rem;">
+              Av. Metropolitana — Yanahuara<br/>Arequipa, Perú
+            </p>
+          </div>
+        </div>
+        <div class="stat-card p-6 reveal-left flex gap-5 items-start" style="transition-delay:.1s">
+          <div class="w-12 h-12 rounded-xl bg-gold/15 flex items-center justify-center shrink-0">
+            <span class="material-symbols-outlined text-gold text-2xl">call</span>
+          </div>
+          <div>
+            <h4 class="font-bold mb-1" style="font-family:'Cinzel',serif;color:#FFBA38;font-size:.85rem;letter-spacing:.15em;text-transform:uppercase;">Teléfono / WhatsApp</h4>
+            <p style="color:#C8B898;font-family:'Cormorant Garamond',serif;font-size:1.2rem;">946 779 952</p>
+          </div>
+        </div>
+        <div class="stat-card p-6 reveal-left flex gap-5 items-start" style="transition-delay:.2s">
+          <div class="w-12 h-12 rounded-xl bg-gold/15 flex items-center justify-center shrink-0">
+            <span class="material-symbols-outlined text-gold text-2xl">schedule</span>
+          </div>
+          <div>
+            <h4 class="font-bold mb-1" style="font-family:'Cinzel',serif;color:#FFBA38;font-size:.85rem;letter-spacing:.15em;text-transform:uppercase;">Horarios</h4>
+            <p style="color:#C8B898;font-family:'Cormorant Garamond',serif;font-size:1.05rem;">
+              Lunes a Domingo<br/>11:30 AM — 10:00 PM
+            </p>
+          </div>
+        </div>
+        <a href="https://wa.me/51946779952?text=Hola!%20Quiero%20hacer%20un%20pedido%20%F0%9F%8D%97"
+           target="_blank" rel="noopener"
+           class="reveal-left flex items-center justify-center gap-3 py-4 rounded-full font-bold text-sm text-white"
+           style="background:#25D366;transition:background .3s,transform .3s;"
+           onmouseover="this.style.background='#1ea855';this.style.transform='translateY(-3px)'"
+           onmouseout="this.style.background='#25D366';this.style.transform='translateY(0)'">
+          <svg class="w-5 h-5 fill-white" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Escribir por WhatsApp — 946 779 952
+        </a>
+      </div>
+
+      <!-- Mapa -->
+      <div class="reveal-right rounded-2xl overflow-hidden border border-gold/15 shadow-2xl" style="height:450px;">
         <iframe
           title="Ubicación El Señor de las Brasas"
           src="https://maps.google.com/maps?q=Av.+Metropolitana+Yanahuara+Arequipa+Peru&t=&z=15&ie=UTF8&iwloc=&output=embed"
           width="100%" height="100%"
-          style="border:0; display:block; min-height:400px; filter:grayscale(100%) invert(90%) contrast(85%);"
+          style="border:0;display:block;filter:grayscale(80%) invert(85%) contrast(90%);"
           allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
         </iframe>
       </div>
@@ -401,32 +964,302 @@
   </div>
 </section>
 
-<!-- Footer -->
-<footer class="bg-neutral-950 flex flex-col items-center justify-center py-12 px-6 gap-6 w-full border-t border-amber-900/20">
-  <div class="text-lg font-bold text-amber-500 font-headline uppercase tracking-tighter">
-    El Señor de las Brasas
+<!-- ══ CTA FINAL ══════════════════════════════════════ -->
+<section class="py-24 px-6 text-center relative overflow-hidden"
+         style="background:linear-gradient(135deg, #120D06 0%, #1C1408 50%, #0A0805 100%);">
+  <div class="absolute inset-0 pointer-events-none">
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-96 bg-gold/8 blur-3xl rounded-full"></div>
   </div>
-  <div class="flex gap-8 items-center justify-center flex-wrap">
-    <a class="text-neutral-500 hover:text-amber-300 transition-colors font-light" href="#">Facebook</a>
-    <a class="text-neutral-500 hover:text-amber-300 transition-colors font-light" href="#">Instagram</a>
-    <a class="text-neutral-500 hover:text-amber-300 transition-colors font-light"
-       href="https://wa.me/51946779952" target="_blank" rel="noopener">WhatsApp</a>
-    <a class="text-neutral-500 hover:text-amber-300 transition-colors font-light" href="#contacto">Ubicación</a>
+  <div class="max-w-3xl mx-auto relative z-10 reveal-up">
+    <!-- Logo grande -->
+    <svg width="70" height="70" viewBox="0 0 38 38" fill="none" class="mx-auto mb-8 animate-float">
+      <path d="M19 3 C22 10, 30 14, 28 22 C26 28, 22 32, 19 35 C16 32, 12 28, 10 22 C8 14, 16 10, 19 3Z"
+            fill="url(#cta-flame)"/>
+      <path d="M19 14 C21 18, 24 20, 22 25 C21 28, 19 30, 19 33 C17 30, 15 28, 16 25 C14 20, 17 18, 19 14Z"
+            fill="#FFBA38" opacity=".9"/>
+      <defs>
+        <linearGradient id="cta-flame" x1="19" y1="3" x2="19" y2="35" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#FFBA38"/>
+          <stop offset="50%" stop-color="#D4940A"/>
+          <stop offset="100%" stop-color="#BE3A1A"/>
+        </linearGradient>
+      </defs>
+    </svg>
+    <h2 style="font-family:'Cinzel',serif;font-size:clamp(2rem,6vw,4rem);font-weight:900;color:#F5ECD8;"
+        class="mb-4 uppercase leading-tight">
+      ¿Listo para las<br/>
+      <span class="gold-gradient-text animate-glow">Mejores Brasas</span>?
+    </h2>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-style:italic;color:#C8B898;"
+       class="mb-10">
+      Pídelo ahora por WhatsApp o visítanos en Yanahuara, Arequipa.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="https://wa.me/51946779952?text=Hola!%20Quiero%20hacer%20un%20pedido%20%F0%9F%8D%97"
+         target="_blank" rel="noopener"
+         class="btn-gold px-10 py-4 rounded-full text-sm flex items-center justify-center gap-2">
+        <span class="material-symbols-outlined text-base">shopping_bag</span>
+        Pedir Ahora — S/. 18
+      </a>
+      <a href="#menu"
+         class="btn-outline px-10 py-4 rounded-full text-sm flex items-center justify-center gap-2">
+        <span class="material-symbols-outlined text-base">restaurant_menu</span>
+        Ver Menú Completo
+      </a>
+    </div>
   </div>
-  <p class="text-neutral-500 font-light text-sm text-center">
-    © 2024 El Señor de las Brasas. Tradición Peruana a la Leña.
-  </p>
+</section>
+
+<!-- ══ FOOTER ═════════════════════════════════════════ -->
+<footer style="background:#060402;border-top:1px solid rgba(212,148,10,.1);">
+  <div class="max-w-7xl mx-auto px-8 md:px-12 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
+
+      <div>
+        <div class="flex items-center gap-3 mb-5">
+          <svg width="32" height="32" viewBox="0 0 38 38" fill="none">
+            <path d="M19 3 C22 10, 30 14, 28 22 C26 28, 22 32, 19 35 C16 32, 12 28, 10 22 C8 14, 16 10, 19 3Z" fill="url(#footer-flame)"/>
+            <path d="M19 14 C21 18, 24 20, 22 25 C21 28, 19 30, 19 33 C17 30, 15 28, 16 25 C14 20, 17 18, 19 14Z" fill="#FFBA38" opacity=".9"/>
+            <defs><linearGradient id="footer-flame" x1="19" y1="3" x2="19" y2="35" gradientUnits="userSpaceOnUse"><stop offset="0%" stop-color="#FFBA38"/><stop offset="60%" stop-color="#D4940A"/><stop offset="100%" stop-color="#BE3A1A"/></linearGradient></defs>
+          </svg>
+          <span style="font-family:'Cinzel',serif;font-weight:800;font-size:.9rem;color:#D4940A;letter-spacing:.1em;text-transform:uppercase;">El Señor de las Brasas</span>
+        </div>
+        <p style="color:#6B5A3A;font-family:'Raleway',sans-serif;font-size:.85rem;line-height:1.7;">
+          Tradición peruana a la leña desde 1998. Yanahuara, Arequipa.
+        </p>
+      </div>
+
+      <div class="flex gap-12">
+        <div>
+          <span style="font-family:'Cinzel',serif;font-size:.7rem;color:#D4940A;letter-spacing:.2em;text-transform:uppercase;display:block;margin-bottom:.75rem;">
+            Navegar
+          </span>
+          <div class="flex flex-col gap-3">
+            <a href="#menu"     style="color:#6B5A3A;font-size:.85rem;" class="hover:text-gold transition-colors">Menú</a>
+            <a href="#promos"   style="color:#6B5A3A;font-size:.85rem;" class="hover:text-gold transition-colors">Promos</a>
+            <a href="#contacto" style="color:#6B5A3A;font-size:.85rem;" class="hover:text-gold transition-colors">Contacto</a>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <span style="font-family:'Cinzel',serif;font-size:.7rem;color:#D4940A;letter-spacing:.2em;text-transform:uppercase;display:block;margin-bottom:.75rem;">
+          Contacto
+        </span>
+        <p style="color:#6B5A3A;font-size:.85rem;font-family:'Raleway',sans-serif;line-height:1.8;">
+          Av. Metropolitana, Yanahuara<br/>
+          Arequipa, Perú<br/>
+          946 779 952
+        </p>
+      </div>
+    </div>
+
+    <div style="border-top:1px solid rgba(212,148,10,.08);padding-top:1.5rem;text-align:center;color:#3A2E1A;font-size:.75rem;font-family:'Raleway',sans-serif;">
+      © 2024 El Señor de las Brasas · Tradición Peruana a la Leña.
+    </div>
+  </div>
 </footer>
 
-<!-- Floating WhatsApp Button -->
-<a class="fixed bottom-8 right-8 z-50 bg-primary text-on-primary w-16 h-16 rounded-full flex items-center justify-center shadow-[0_20px_40px_rgba(0,0,0,0.4)] hover:scale-110 transition-all group"
-   href="https://wa.me/51946779952?text=Hola!%20Quiero%20hacer%20un%20pedido%20🍗"
+<!-- ══ WhatsApp flotante ═══════════════════════════════ -->
+<a id="wa-float"
+   href="https://wa.me/51946779952?text=Hola!%20Quiero%20hacer%20un%20pedido%20%F0%9F%8D%97"
    target="_blank" rel="noopener" aria-label="Pedir por WhatsApp">
-  <span class="material-symbols-outlined text-3xl">shopping_cart</span>
-  <span class="absolute right-20 bg-background text-on-background px-4 py-2 rounded-lg text-sm font-bold opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap border border-outline-variant/30">
-    Pedir Delivery
-  </span>
+  <svg class="w-7 h-7 fill-white" viewBox="0 0 24 24">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
 </a>
 
+<!-- ══ SCRIPTS ════════════════════════════════════════ -->
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+/* ── Preloader ─────────────────────────────────────── */
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('preloader').classList.add('hide');
+  }, 2800);
+});
+
+/* ── Marquee: llenar contenido ─────────────────────── */
+(function() {
+  const items = [
+    '🍗 Pollo a la Leña','🔥 100% Leña Seleccionada','⏱ 24h de Marinado',
+    '🧄 Hierbas Andinas','✨ Receta Secreta','🍟 Papas Crocantes',
+    '🥗 Ensalada Fresca','🌶 Crema de Ají','🏆 25 Años de Tradición',
+    '📍 Yanahuara · Arequipa',
+  ];
+  const track = document.getElementById('marquee-track');
+  const html = items.map(t =>
+    `<span style="display:inline-flex;align-items:center;gap:.5rem;
+      padding:.4rem 1.5rem;font-family:'Cinzel',serif;font-size:.7rem;
+      letter-spacing:.15em;text-transform:uppercase;color:#fff;
+      border-right:1px solid rgba(255,255,255,.2);white-space:nowrap;">${t}</span>`
+  ).join('');
+  track.innerHTML = html + html; // duplicar para loop
+})();
+
+/* ── Cursor tenedor ────────────────────────────────── */
+const forkEl = document.getElementById('fork-cursor');
+let mx = 0, my = 0;
+const trails = [];
+const TRAIL_COUNT = 8;
+for (let i = 0; i < TRAIL_COUNT; i++) {
+  const d = document.createElement('div');
+  d.className = 'fork-trail';
+  document.body.appendChild(d);
+  trails.push({ el: d, x: 0, y: 0 });
+}
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  gsap.to(forkEl, { x: mx, y: my, duration: 0.05, ease: 'none' });
+});
+document.addEventListener('mousedown', () => forkEl.classList.add('clicking'));
+document.addEventListener('mouseup',   () => forkEl.classList.remove('clicking'));
+
+// Trail animation loop
+(function loop() {
+  let x = mx, y = my;
+  trails.forEach((t, i) => {
+    t.x += (x - t.x) * (0.35 - i * 0.03);
+    t.y += (y - t.y) * (0.35 - i * 0.03);
+    const s = 1 - i / TRAIL_COUNT;
+    t.el.style.cssText = `
+      left:${t.x}px; top:${t.y}px;
+      opacity:${s * 0.45};
+      transform: translate(-50%,-50%) scale(${s});
+    `;
+    x = t.x; y = t.y;
+  });
+  requestAnimationFrame(loop);
+})();
+
+/* ── Ember particles ───────────────────────────────── */
+(function() {
+  const colors = ['#D4940A','#FFBA38','#BE3A1A','#E85A2A','#FFD700'];
+  const cont = document.getElementById('embers-container');
+  for (let i = 0; i < 22; i++) {
+    const e = document.createElement('div');
+    const sz = Math.random() * 5 + 2;
+    e.className = 'ember';
+    e.style.cssText = `
+      width:${sz}px; height:${sz}px;
+      background:${colors[i % colors.length]};
+      left:${Math.random() * 100}vw;
+      animation-duration:${Math.random() * 20 + 12}s;
+      animation-delay:${Math.random() * 15}s;
+      box-shadow: 0 0 ${sz*2}px ${colors[i%colors.length]};
+    `;
+    cont.appendChild(e);
+  }
+})();
+
+/* ── Nav scroll ────────────────────────────────────── */
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', scrollY > 60);
+  const pct = scrollY / (document.body.scrollHeight - innerHeight) * 100;
+  document.getElementById('progress-bar').style.width = Math.min(pct, 100) + '%';
+}, { passive: true });
+
+/* ── Mobile nav ────────────────────────────────────── */
+let mobOpen = false;
+document.getElementById('mob-btn').addEventListener('click', () => {
+  mobOpen = !mobOpen;
+  const m = document.getElementById('mob-menu');
+  m.classList.toggle('hidden', !mobOpen);
+  m.classList.toggle('flex', mobOpen);
+  document.getElementById('mob-btn').textContent = mobOpen ? 'close' : 'menu';
+});
+function closeMob() {
+  mobOpen = false;
+  document.getElementById('mob-menu').classList.add('hidden');
+  document.getElementById('mob-menu').classList.remove('flex');
+  document.getElementById('mob-btn').textContent = 'menu';
+}
+
+/* ── GSAP Hero ─────────────────────────────────────── */
+gsap.timeline({ delay: 3 })
+  .fromTo('#hero-badge',  { y:30, opacity:0 }, { y:0, opacity:1, duration:.7, ease:'back.out(1.4)' })
+  .fromTo('#hero-h1',     { y:70, opacity:0 }, { y:0, opacity:1, duration:1, ease:'power3.out' }, .15)
+  .fromTo('#hero-sub',    { y:30, opacity:0 }, { y:0, opacity:1, duration:.7, ease:'power2.out' }, .4)
+  .fromTo('#hero-btns',   { y:25, opacity:0 }, { y:0, opacity:1, duration:.6, ease:'power2.out' }, .6)
+  .fromTo('#hero-stats',  { y:25, opacity:0 }, { y:0, opacity:1, duration:.6, ease:'power2.out' }, .75);
+
+// Parallax hero
+gsap.to('#hero-bg', {
+  yPercent: 20, ease: 'none',
+  scrollTrigger: { trigger:'#inicio', start:'top top', end:'bottom top', scrub: 2 }
+});
+
+/* ── GSAP Scroll Reveals ───────────────────────────── */
+document.querySelectorAll('.reveal-up').forEach((el, i) => {
+  gsap.fromTo(el,
+    { y: 60, opacity: 0 },
+    { y: 0, opacity: 1, duration: .9, ease: 'power3.out',
+      delay: (i % 3) * .1,
+      scrollTrigger: { trigger: el, start: 'top 88%', once: true } }
+  );
+});
+document.querySelectorAll('.reveal-left').forEach((el, i) => {
+  gsap.fromTo(el,
+    { x: -60, opacity: 0 },
+    { x: 0, opacity: 1, duration: .9, ease: 'power3.out',
+      delay: i * .12,
+      scrollTrigger: { trigger: el, start: 'top 88%', once: true } }
+  );
+});
+document.querySelectorAll('.reveal-right').forEach(el => {
+  gsap.fromTo(el,
+    { x: 60, opacity: 0 },
+    { x: 0, opacity: 1, duration: .9, ease: 'power3.out',
+      scrollTrigger: { trigger: el, start: 'top 88%', once: true } }
+  );
+});
+document.querySelectorAll('.reveal-scale').forEach((el, i) => {
+  gsap.fromTo(el,
+    { scale: .85, opacity: 0 },
+    { scale: 1, opacity: 1, duration: .85, ease: 'back.out(1.2)',
+      delay: el.style.transitionDelay ? parseFloat(el.style.transitionDelay) : i * .1,
+      scrollTrigger: { trigger: el, start: 'top 88%', once: true } }
+  );
+});
+
+/* ── Contadores animados ───────────────────────────── */
+document.querySelectorAll('[data-count]').forEach(el => {
+  const target = +el.dataset.count;
+  const obj = { v: 0 };
+  gsap.to(obj, {
+    v: target, duration: 2.5, ease: 'power2.out', delay: 3.5,
+    onUpdate() { el.textContent = Math.round(obj.v); }
+  });
+});
+
+/* ── 3D Tilt menu cards ────────────────────────────── */
+document.querySelectorAll('.menu-card').forEach(card => {
+  if (!window.matchMedia('(hover:hover)').matches) return;
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const xP = (e.clientX - r.left) / r.width  - .5;
+    const yP = (e.clientY - r.top)  / r.height - .5;
+    gsap.to(card, { rotateY: xP*10, rotateX: -yP*10,
+                    transformPerspective: 900, duration:.25, ease:'power2.out' });
+  });
+  card.addEventListener('mouseleave', () => {
+    gsap.to(card, { rotateY:0, rotateX:0, duration:.7, ease:'power3.out' });
+  });
+});
+
+/* ── Nav active link on scroll ─────────────────────── */
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(s => {
+    if (scrollY >= s.offsetTop - 200) current = s.id;
+  });
+  navLinks.forEach(l => {
+    l.classList.toggle('active', l.getAttribute('href') === `#${current}`);
+  });
+}, { passive: true });
+</script>
 </body>
 </html>
